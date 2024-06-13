@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\estudo C#\\LibraryManager\\LibraryManager.Api\\LibraryManager.Api.csproj": {}
+    "E:\\estudo C#\\LibraryManager-Repository\\LibraryManagerAPI\\LibraryManager\\LibraryManager.Api\\LibraryManager.Api.csproj": {}
   },
   "projects": {
-    "E:\\estudo C#\\LibraryManager\\LibraryManager.Api\\LibraryManager.Api.csproj": {
+    "E:\\estudo C#\\LibraryManager-Repository\\LibraryManagerAPI\\LibraryManager\\LibraryManager.Api\\LibraryManager.Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\estudo C#\\LibraryManager\\LibraryManager.Api\\LibraryManager.Api.csproj",
+        "projectUniqueName": "E:\\estudo C#\\LibraryManager-Repository\\LibraryManagerAPI\\LibraryManager\\LibraryManager.Api\\LibraryManager.Api.csproj",
         "projectName": "LibraryManager.Api",
-        "projectPath": "E:\\estudo C#\\LibraryManager\\LibraryManager.Api\\LibraryManager.Api.csproj",
+        "projectPath": "E:\\estudo C#\\LibraryManager-Repository\\LibraryManagerAPI\\LibraryManager\\LibraryManager.Api\\LibraryManager.Api.csproj",
         "packagesPath": "C:\\Users\\joaoG\\.nuget\\packages\\",
-        "outputPath": "E:\\estudo C#\\LibraryManager\\LibraryManager.Api\\obj\\",
+        "outputPath": "E:\\estudo C#\\LibraryManager-Repository\\LibraryManagerAPI\\LibraryManager\\LibraryManager.Api\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -50,6 +50,10 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[13.0.1, )"
+            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[8.0.6, )"

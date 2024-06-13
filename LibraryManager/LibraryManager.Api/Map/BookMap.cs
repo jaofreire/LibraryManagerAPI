@@ -9,10 +9,24 @@ namespace LibraryManager.Api.Map
         public void Configure(EntityTypeBuilder<BookModel> builder)
         {
             builder.HasKey(x => x.Id);
-            builder.Property(x => x.Title);
-            builder.Property(x => x.Description);
-            builder.Property(x => x.Category);
-            builder.Property(x => x.PublishedDate);
+
+            builder.Property(x => x.Title)
+                .IsRequired()
+                .HasColumnType("NVARCHAR")
+                .HasMaxLength(80);
+
+            builder.Property(x => x.Description)
+                .IsRequired(false)
+                .HasColumnType("NVARCHAR")
+                .HasMaxLength(160);
+
+            builder.Property(x => x.Category)
+                .IsRequired()
+                .HasColumnType("VARCHAR")
+                .HasMaxLength(80);
+
+            builder.Property(x => x.PublishedDate)
+                .IsRequired(false);
 
             builder.HasOne(x => x.Author).WithMany().HasForeignKey(x => x.AuthorId);
         }

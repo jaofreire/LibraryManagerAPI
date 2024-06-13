@@ -1,4 +1,5 @@
 ﻿using LibraryManager.Api.Data;
+using LibraryManager.Api.DTOs.Author;
 using LibraryManager.Api.Models;
 using LibraryManager.Api.Repositories.Interface;
 using Microsoft.EntityFrameworkCore;
@@ -30,15 +31,22 @@ namespace LibraryManager.Api.Repositories
             return await _dbContext.Authors.Where(x => x.Name.Contains(name)).ToListAsync();
         }
 
-        public async Task<AuthorModel> CreateAsync(AuthorModel newModel)
+        public async Task<AuthorModel> CreateAsync(CreateAuthorDTO createModel)
         {
+            var newModel = new AuthorModel()
+            {
+                Name = createModel.Name,
+                Bio = createModel.Bio,
+                DateOfBirth = createModel.DateOfBirth,
+            };
+
             await _dbContext.Authors.AddAsync(newModel);
             await _dbContext.SaveChangesAsync();
 
             return newModel;
         }
 
-        public async Task<AuthorModel> UpdateAsync(long id, AuthorModel model)
+        public async Task<AuthorModel> UpdateAsync(long id, UpdateAuthorDTO model)
         {
             var modelUpdate = await GetByIdAsync(id);
 
