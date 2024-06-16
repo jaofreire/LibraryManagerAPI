@@ -1,6 +1,6 @@
 using LibraryManager.Api.Data;
 using LibraryManager.Api.Repositories;
-using LibraryManager.Api.Repositories.Interface;
+using LibraryManager.Api.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,6 +19,7 @@ builder.Services.AddEntityFrameworkSqlServer().AddDbContext<LibraryDbContext>(o 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IBookRepository, BookRepository>();
 builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 
 var app = builder.Build();
 

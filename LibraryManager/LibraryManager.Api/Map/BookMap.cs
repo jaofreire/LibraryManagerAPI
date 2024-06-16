@@ -1,4 +1,4 @@
-﻿using LibraryManager.Api.Models;
+﻿using LibraryManager.Core.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -20,15 +20,19 @@ namespace LibraryManager.Api.Map
                 .HasColumnType("NVARCHAR")
                 .HasMaxLength(160);
 
+            builder.Property(x => x.Price)
+                .IsRequired()
+                .HasColumnType("DECIMAL");
+
             builder.Property(x => x.Category)
                 .IsRequired()
                 .HasColumnType("VARCHAR")
                 .HasMaxLength(80);
 
-            builder.Property(x => x.PublishedDate)
+            builder.Property(x => x.PublishedTime)
                 .IsRequired(false);
 
-            builder.HasOne(x => x.Author).WithMany().HasForeignKey(x => x.AuthorId);
+            builder.HasOne(x => x.Author).WithMany(x => x.Books).HasForeignKey(x => x.AuthorId);
         }
     }
 }

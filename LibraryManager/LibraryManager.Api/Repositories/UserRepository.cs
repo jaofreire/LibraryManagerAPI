@@ -1,66 +1,39 @@
-﻿using LibraryManager.Api.Data;
-using LibraryManager.Api.Models;
-using LibraryManager.Api.Repositories.Interface;
-using Microsoft.EntityFrameworkCore;
+﻿using LibraryManager.Api.Repositories.Interfaces;
+using LibraryManager.Core.DTOs.User.InputModels;
+using LibraryManager.Core.DTOs.User.ViewModels;
 
 namespace LibraryManager.Api.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        private readonly LibraryDbContext _dbContext;
-
-        public UserRepository(LibraryDbContext dbContext)
+        public Task<bool> DeleteUser(long id)
         {
-            _dbContext = dbContext;
+            throw new NotImplementedException();
         }
 
-        public async Task<List<UserModel>> GetAllAsync()
+        public Task<List<ViewUserDTO>> GetAllUsers()
         {
-            return await _dbContext.Users.ToListAsync();
+            throw new NotImplementedException();
         }
 
-        public async Task<UserModel> GetByIdAsync(long id)
+        public Task<ViewUserDTO> GetUserById(long id)
         {
-            return await _dbContext.Users.FindAsync(id) ??
-                throw new Exception("The user is not found");
+            throw new NotImplementedException();
         }
 
-        public async Task<List<UserModel>> GetByNameAsync(string name)
+        public Task<ViewValidateCredentialsUserDTO> GetUserByIdValidateCredentials(long id)
         {
-            return await _dbContext.Users.Where(x => x.Name.Contains(name)).ToListAsync();
+            throw new NotImplementedException();
         }
 
-        public async Task<UserModel> CreateAsync(UserModel newModel)
+        public Task<CreateUserDTO> RegisterUser(CreateUserDTO model)
         {
-            await _dbContext.Users.AddAsync(newModel);
-            await _dbContext.SaveChangesAsync();
-
-            return newModel;
+            throw new NotImplementedException();
         }
 
-        public async Task<UserModel> UpdateAsync(long id, UserModel model)
+        public Task<UpdateInputUserDTO> UpdateUser(long id, UpdateInputUserDTO model)
         {
-            var modelUpdate = await GetByIdAsync(id);
-
-            modelUpdate.Name = model.Name;
-            modelUpdate.Password = model.Password;
-            modelUpdate.Role = model.Role;
-
-            _dbContext.Users.Update(modelUpdate);
-            await _dbContext.SaveChangesAsync();
-
-            return modelUpdate;
+            throw new NotImplementedException();
         }
-
-        public async Task<bool> DeleteAsync(long id)
-        {
-            var model = await GetByIdAsync(id);
-
-            _dbContext.Users.Remove(model);
-            await _dbContext.SaveChangesAsync();
-
-            return true;
-        }
-  
     }
 }

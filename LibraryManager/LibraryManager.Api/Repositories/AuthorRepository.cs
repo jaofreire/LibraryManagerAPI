@@ -1,75 +1,34 @@
-﻿using LibraryManager.Api.Data;
-using LibraryManager.Api.DTOs.Author;
-using LibraryManager.Api.Models;
-using LibraryManager.Api.Repositories.Interface;
-using Microsoft.EntityFrameworkCore;
+﻿using LibraryManager.Api.Repositories.Interfaces;
+using LibraryManager.Core.DTOs.Author.InputModel;
+using LibraryManager.Core.DTOs.Author.ViewModel;
 
 namespace LibraryManager.Api.Repositories
 {
     public class AuthorRepository : IAuthorRepository
     {
-        private readonly LibraryDbContext _dbContext;
-
-        public AuthorRepository(LibraryDbContext dbContext)
+        public Task<bool> DeleteAuthor(long id)
         {
-            _dbContext = dbContext;
+            throw new NotImplementedException();
         }
 
-        public async Task<List<AuthorModel>> GetAllAsync()
+        public Task<List<ViewAuthorDTO>> GetAllAuthors()
         {
-            return await _dbContext.Authors.ToListAsync();
+            throw new NotImplementedException();
         }
 
-        public async Task<AuthorModel> GetByIdAsync(long id)
+        public Task<ViewAuthorDTO> GetAuthorById(long id)
         {
-            return await _dbContext.Authors.FindAsync(id) ??
-                throw new Exception("The auhor is not found");
+            throw new NotImplementedException();
         }
 
-        public async Task<List<AuthorModel>> GetByNameAsync(string name)
+        public Task<CreateAuthorDTO> RegisterAuthor(CreateAuthorDTO model)
         {
-            return await _dbContext.Authors.Where(x => x.Name.Contains(name)).ToListAsync();
+            throw new NotImplementedException();
         }
 
-        public async Task<AuthorModel> CreateAsync(CreateAuthorDTO createModel)
+        public Task<UpdateAuthorDTO> UpdateAuthor(long id, UpdateAuthorDTO model)
         {
-            var newModel = new AuthorModel()
-            {
-                Name = createModel.Name,
-                Bio = createModel.Bio,
-                DateOfBirth = createModel.DateOfBirth,
-            };
-
-            await _dbContext.Authors.AddAsync(newModel);
-            await _dbContext.SaveChangesAsync();
-
-            return newModel;
+            throw new NotImplementedException();
         }
-
-        public async Task<AuthorModel> UpdateAsync(long id, UpdateAuthorDTO model)
-        {
-            var modelUpdate = await GetByIdAsync(id);
-
-            modelUpdate.Name = model.Name;
-            modelUpdate.Bio = model.Bio;
-            modelUpdate.DateOfBirth = model.DateOfBirth;
-
-            _dbContext.Authors.Update(modelUpdate);
-            await _dbContext.SaveChangesAsync();
-
-            return modelUpdate;
-        }
-
-        public async Task<bool> DeleteAsync(long id)
-        {
-            var model = await GetByIdAsync(id);
-
-            _dbContext.Authors.Remove(model);
-            await _dbContext.SaveChangesAsync();
-
-            return true;
-        }
-
-            
     }
 }

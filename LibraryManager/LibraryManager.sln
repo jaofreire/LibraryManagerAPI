@@ -5,6 +5,8 @@ VisualStudioVersion = 17.10.34916.146
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibraryManager.Api", "LibraryManager.Api\LibraryManager.Api.csproj", "{2B9FF826-7232-434E-B5FD-E066C9090736}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibraryManager.Core", "LibraryManager.Core\LibraryManager.Core.csproj", "{9964A11A-2F9C-47BA-ABB9-10028919A798}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{2B9FF826-7232-434E-B5FD-E066C9090736}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2B9FF826-7232-434E-B5FD-E066C9090736}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2B9FF826-7232-434E-B5FD-E066C9090736}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9964A11A-2F9C-47BA-ABB9-10028919A798}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9964A11A-2F9C-47BA-ABB9-10028919A798}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9964A11A-2F9C-47BA-ABB9-10028919A798}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9964A11A-2F9C-47BA-ABB9-10028919A798}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

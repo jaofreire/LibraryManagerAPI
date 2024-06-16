@@ -1,80 +1,44 @@
-﻿using LibraryManager.Api.Data;
-using LibraryManager.Api.Models;
-using LibraryManager.Api.Repositories.Interface;
-using Microsoft.EntityFrameworkCore;
+﻿using LibraryManager.Api.Repositories.Interfaces;
+using LibraryManager.Core.DTOs.Book.InputModel;
+using LibraryManager.Core.DTOs.Book.ViewModel;
 
 namespace LibraryManager.Api.Repositories
 {
     public class BookRepository : IBookRepository
     {
-        private readonly LibraryDbContext _dbContext;
-
-        public BookRepository(LibraryDbContext dbContext)
+        public Task<bool> DeleteBook(long id)
         {
-            _dbContext = dbContext;
+            throw new NotImplementedException();
         }
 
-        public async Task<List<BookModel>> GetAllAsync()
+        public Task<List<ViewBookDTO>> GetAllBooks()
         {
-            return await _dbContext.Books.Include(x => x.Author).ToListAsync();
-
+            throw new NotImplementedException();
         }
 
-        public async Task<BookModel> GetByIdAsync(long id)
+        public Task<List<ViewBookDTO>> GetBookByCategory(string category)
         {
-            return await _dbContext.Books.Include(x => x.Author).FirstOrDefaultAsync(x => x.Id == id) ??
-                throw new Exception("The book is not found");
+            throw new NotImplementedException();
         }
 
-        public async Task<List<BookModel>> GetByNameAsync(string name)
+        public Task<ViewBookDTO> GetBookById(long id)
         {
-            return await _dbContext.Books.Include(x => x.Author).Where(x => x.Title.Contains(name)).ToListAsync();
+            throw new NotImplementedException();
         }
 
-        public async Task<List<BookModel>> GetByAuthorAsync(long authorId)
+        public Task<List<ViewBookDTO>> GetBookByName(string name)
         {
-            return await _dbContext.Books.Include(x => x.Author).Where(x => x.AuthorId == authorId).ToListAsync();
+            throw new NotImplementedException();
         }
 
-        public async Task<List<BookModel>> GetByCategoryAsync(string categoryName)
+        public Task<CreateBookDTO> RegisterBook(CreateBookDTO createBookDTO)
         {
-            return await _dbContext.Books.Include(x => x.Author).Where(x => x.Category.Contains(categoryName)).ToListAsync();
+            throw new NotImplementedException();
         }
 
-        public async Task<BookModel> CreateAsync(BookModel newModel)
+        public Task<UpdateBookDTO> UpdateBook(long id, UpdateBookDTO updateBookDTO)
         {
-            await _dbContext.Books.AddAsync(newModel);
-            await _dbContext.SaveChangesAsync();
-
-            return newModel;
+            throw new NotImplementedException();
         }
-
-        public async Task<BookModel> UpdateAsync(long id, BookModel model)
-        {
-            var modelUpdate = await GetByIdAsync(id);
-
-            modelUpdate.Title = model.Title;
-            modelUpdate.Description = model.Description;
-            modelUpdate.AuthorId = model.AuthorId;
-            modelUpdate.Category = model.Category;
-            modelUpdate.PublishedDate = model.PublishedDate;
-
-            _dbContext.Books.Update(modelUpdate);
-            await _dbContext.SaveChangesAsync();
-
-            return modelUpdate;
-        }
-
-        public async Task<bool> DeleteAsync(long id)
-        {
-            var model = await GetByIdAsync(id);
-
-            _dbContext.Books.Remove(model);
-            await _dbContext.SaveChangesAsync();
-
-            return true;
-        }
-
-       
     }
 }

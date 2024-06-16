@@ -1,5 +1,5 @@
 ﻿using LibraryManager.Api.Map;
-using LibraryManager.Api.Models;
+using LibraryManager.Core.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace LibraryManager.Api.Data
@@ -17,6 +17,7 @@ namespace LibraryManager.Api.Data
             modelBuilder.ApplyConfiguration(new UserMap());
             modelBuilder.ApplyConfiguration(new BookMap());
             modelBuilder.ApplyConfiguration(new AuthorMap());
+            modelBuilder.ApplyConfiguration(new OrderMap());
             base.OnModelCreating(modelBuilder);
         }
     }
