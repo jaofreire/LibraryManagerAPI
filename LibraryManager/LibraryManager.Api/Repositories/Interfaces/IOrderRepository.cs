@@ -6,9 +6,9 @@ namespace LibraryManager.Api.Repositories.Interfaces
     public interface IOrderRepository
     {
         Task<CreateOrderDTO> CreateOrder(CreateOrderDTO model);
-        Task<List<OrderModel>> GetAllOrders();
+        Task<List<OrderModel>> GetAllOrders(long UserId);
         Task<OrderModel> GetOrderById(long id, long UserId);
-        Task<UpdateOrderDTO> UpdateOrder(long id, UpdateOrderDTO model);
-        Task<bool> DeleteOrder(long id);
+        Task<UpdateOrderDTO> UpdateOrder(long id, long UserId, UpdateOrderDTO model);
+        Task<bool> DeleteOrder(long id, long UserId);
     }
 }

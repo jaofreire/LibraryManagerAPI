@@ -1,3 +1,4 @@
+using LibraryManager.Api.Commons;
 using LibraryManager.Api.Data;
 using LibraryManager.Api.Repositories;
 using LibraryManager.Api.Repositories.Interfaces;
@@ -15,11 +16,18 @@ builder.Services.AddEntityFrameworkSqlServer().AddDbContext<LibraryDbContext>(o 
 {
     o.UseSqlServer(builder.Configuration["SqlServer:ConnectionStrings"]);
 });
+builder.Services.AddStackExchangeRedisCache(o =>
+{
+    o.Configuration = builder.Configuration["Redis:ConnectionStrings"];
+});
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IBookRepository, BookRepository>();
 builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+
+builder.Services.AddSingleton<CacheHandler>();
+builder.Services.AddSingleton<HashPassword>();
 
 var app = builder.Build();
 

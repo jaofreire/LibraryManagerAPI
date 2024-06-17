@@ -1,34 +1,108 @@
-﻿using LibraryManager.Api.Repositories.Interfaces;
+﻿using LibraryManager.Api.Data;
+using LibraryManager.Api.Repositories.Interfaces;
 using LibraryManager.Core.DTOs.Author.InputModel;
 using LibraryManager.Core.DTOs.Author.ViewModel;
+using LibraryManager.Core.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace LibraryManager.Api.Repositories
 {
     public class AuthorRepository : IAuthorRepository
     {
-        public Task<bool> DeleteAuthor(long id)
+        private readonly LibraryDbContext _dbContext;
+
+        public AuthorRepository(LibraryDbContext dbContext)
         {
-            throw new NotImplementedException();
+            _dbContext = dbContext;
         }
 
-        public Task<List<ViewAuthorDTO>> GetAllAuthors()
+        public async Task<CreateAuthorDTO> RegisterAuthor(CreateAuthorDTO modelDTO)
         {
-            throw new NotImplementedException();
+            var model = new AuthorModel()
+            {
+               Name = modelDTO.Name,
+               Bio = modelDTO.Bio,
+               DateOfBirth = modelDTO.DateOfBirth,
+            };
+
+            await _dbContext.Authors.AddAsync(model);
+            await _dbContext.SaveChangesAsync();
+
+            return modelDTO;
         }
 
-        public Task<ViewAuthorDTO> GetAuthorById(long id)
+        public async Task<List<ViewAuthorDTO>> GetAllAuthors()
         {
-            throw new NotImplementedException();
+            List<ViewAuthorDTO> authorsDTO = [];
+
+            var models = await _dbContext.Authors
+                .AsNoTracking()
+                .Include(x => x.Books)
+                .ToListAsync();
+
+            foreach (var authors in models)
+            {
+                var DTO = new ViewAuthorDTO()
+                {
+                    Id = authors.Id,
+                    Name = authors.Name,
+                    Bio = authors.Bio,
+                    DateOfBirth = authors.DateOfBirth,
+                    Books = authors.Books
+                };
+
+                authorsDTO.Add(DTO);
+            }
+
+            return authorsDTO;
         }
 
-        public Task<CreateAuthorDTO> RegisterAuthor(CreateAuthorDTO model)
+        public async Task<ViewAuthorDTO> GetAuthorById(long id)
         {
-            throw new NotImplementedException();
+            var model = await _dbContext.Authors
+                .AsNoTracking()
+                .FirstOrDefaultAsync(x => x.Id == id) ?? 
+                throw new Exception("The author is not found");
+
+            var DTO = new ViewAuthorDTO()
+            {
+                Id = model.Id,
+                Name = model.Name,
+                Bio = model.Bio,
+                DateOfBirth = model.DateOfBirth,
+                Books = model.Books
+            };
+
+            return DTO;
         }
 
-        public Task<UpdateAuthorDTO> UpdateAuthor(long id, UpdateAuthorDTO model)
+       
+        public async Task<UpdateAuthorDTO> UpdateAuthor(long id, UpdateAuthorDTO modelDTO)
         {
-            throw new NotImplementedException();
+            var modelUpdate = await _dbContext.Authors
+                .FindAsync(id) ??
+                throw new Exception("The author is not found");
+
+            modelUpdate.Name = modelDTO.Name;
+            modelUpdate.Bio = modelDTO.Bio;
+            modelUpdate.DateOfBirth = modelDTO.DateOfBirth;
+
+            _dbContext.Authors.Update(modelUpdate);
+            await _dbContext.SaveChangesAsync();
+
+            return modelDTO;
+        }
+
+        public async Task<bool> DeleteAuthor(long id)
+        {
+            var model = await _dbContext.Authors
+                .FindAsync(id) ??
+                throw new Exception("The author is not found");
+
+            _dbContext.Authors.Remove(model);
+            await _dbContext.SaveChangesAsync();
+
+            return true;
         }
     }
 }
