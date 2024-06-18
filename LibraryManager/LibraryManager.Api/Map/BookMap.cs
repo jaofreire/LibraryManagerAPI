@@ -30,7 +30,7 @@ namespace LibraryManager.Api.Map
                 .HasMaxLength(80);
 
             builder.Property(x => x.PublishedTime)
-                .IsRequired(false);
+                .IsRequired();
 
             builder.HasOne(x => x.Author).WithMany(x => x.Books).HasForeignKey(x => x.AuthorId);
         }

@@ -26,8 +26,8 @@ namespace LibraryManager.Api.Map
                 .HasMaxLength(255);
 
             builder.Property(x => x.PasswordHash)
-                .IsRequired()
-                .HasColumnType("NVARCHAR");
+                .IsRequired();
+
 
             builder.Property(x => x.Role)
                 .IsRequired()

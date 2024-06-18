@@ -10,4 +10,8 @@
     <Folder Include="DTOs\Order\ViewModel\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="MongoDB.Bson" Version="2.26.0" />
+  </ItemGroup>
+
 </Project>

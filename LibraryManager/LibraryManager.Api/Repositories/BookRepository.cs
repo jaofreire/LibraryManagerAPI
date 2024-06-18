@@ -1,6 +1,7 @@
 ﻿using LibraryManager.Api.Commons;
 using LibraryManager.Api.Data;
 using LibraryManager.Api.Repositories.Interfaces;
+using LibraryManager.Core.DTOs.Author.ViewModel;
 using LibraryManager.Core.DTOs.Book.InputModel;
 using LibraryManager.Core.DTOs.Book.ViewModel;
 using LibraryManager.Core.Enums;
@@ -50,6 +51,14 @@ namespace LibraryManager.Api.Repositories
 
             foreach (var booksModel in models)
             {
+                var AuthorDTO = new ViewAuthorInBooksDTO()
+                {
+                    Id = booksModel.AuthorId,
+                    Name = booksModel.Author.Name,
+                    Bio = booksModel.Author.Bio,
+                    DateOfBirth = booksModel.Author.DateOfBirth
+                };
+
                 var DTO = new ViewBookDTO()
                 {
                     Id = booksModel.Id,
@@ -58,7 +67,7 @@ namespace LibraryManager.Api.Repositories
                     Price = booksModel.Price,
                     Category = booksModel.Category,
                     AuthorId = booksModel.AuthorId,
-                    Author = booksModel.Author,
+                    Author = AuthorDTO,
                     PublishedTime = booksModel.PublishedTime
                 };
 
@@ -81,6 +90,14 @@ namespace LibraryManager.Api.Repositories
 
             foreach (var booksModel in models)
             {
+                var AuthorDTO = new ViewAuthorInBooksDTO()
+                {
+                    Id = booksModel.AuthorId,
+                    Name = booksModel.Author.Name,
+                    Bio = booksModel.Author.Bio,
+                    DateOfBirth = booksModel.Author.DateOfBirth
+                };
+
                 var DTO = new ViewBookDTO()
                 {
                     Id = booksModel.Id,
@@ -89,7 +106,7 @@ namespace LibraryManager.Api.Repositories
                     Price = booksModel.Price,
                     Category = booksModel.Category,
                     AuthorId = booksModel.AuthorId,
-                    Author = booksModel.Author,
+                    Author = AuthorDTO,
                     PublishedTime = booksModel.PublishedTime
                 };
 
@@ -106,7 +123,15 @@ namespace LibraryManager.Api.Repositories
                 .Include(x => x.Author)
                 .FirstOrDefaultAsync(x => x.Id == id) ??
                 throw new Exception("The book is not found");
- 
+
+            var AuthorDTO = new ViewAuthorInBooksDTO()
+            {
+                Id = model.AuthorId,
+                Name = model.Author.Name,
+                Bio = model.Author.Bio,
+                DateOfBirth = model.Author.DateOfBirth
+            };
+
             var DTO = new ViewBookDTO()
             {
                 Id = model.Id,
@@ -115,7 +140,7 @@ namespace LibraryManager.Api.Repositories
                 Price = model.Price,
                 Category = model.Category,
                 AuthorId = model.AuthorId,
-                Author = model.Author,
+                Author = AuthorDTO,
                 PublishedTime = model.PublishedTime
             };
 
@@ -135,6 +160,15 @@ namespace LibraryManager.Api.Repositories
 
             foreach (var booksModel in models)
             {
+
+                var AuthorDTO = new ViewAuthorInBooksDTO()
+                {
+                    Id = booksModel.AuthorId,
+                    Name = booksModel.Author.Name,
+                    Bio = booksModel.Author.Bio,
+                    DateOfBirth = booksModel.Author.DateOfBirth
+                };
+
                 var DTO = new ViewBookDTO()
                 {
                     Id = booksModel.Id,
@@ -143,7 +177,7 @@ namespace LibraryManager.Api.Repositories
                     Price = booksModel.Price,
                     Category = booksModel.Category,
                     AuthorId = booksModel.AuthorId,
-                    Author = booksModel.Author,
+                    Author = AuthorDTO,
                     PublishedTime = booksModel.PublishedTime
                 };
 

@@ -21,7 +21,7 @@ namespace LibraryManager.Api.Map
                 .HasMaxLength(260);
 
             builder.Property(x => x.DateOfBirth)
-                .IsRequired(false);
+                .IsRequired();
 
         }
     }

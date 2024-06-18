@@ -11,14 +11,12 @@ namespace LibraryManager.Api.Data
         public DbSet<UserModel> Users { get; set; }
         public DbSet<BookModel> Books { get; set; }
         public DbSet<AuthorModel> Authors { get; set; }
-        public DbSet<OrderModel> Orders { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new UserMap());
             modelBuilder.ApplyConfiguration(new BookMap());
             modelBuilder.ApplyConfiguration(new AuthorMap());
-            modelBuilder.ApplyConfiguration(new OrderMap());
             base.OnModelCreating(modelBuilder);
         }
     }

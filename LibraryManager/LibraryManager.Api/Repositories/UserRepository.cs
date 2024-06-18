@@ -5,6 +5,7 @@ using LibraryManager.Core.DTOs.User.InputModels;
 using LibraryManager.Core.DTOs.User.ViewModels;
 using LibraryManager.Core.Enums;
 using LibraryManager.Core.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace LibraryManager.Api.Repositories
@@ -38,6 +39,13 @@ namespace LibraryManager.Api.Repositories
 
             await _dbContext.Users.AddAsync(model);
             await _dbContext.SaveChangesAsync();
+
+           var modelCache =  await _dbContext.Users
+                .AsNoTracking()
+                .FirstOrDefaultAsync(x => x.PasswordHash == passwordHash);
+
+            await _cacheHandler.SetCacheObject<UserModel>(modelCache.Id.ToString(), modelCache);
+                
 
             return modelDTO;
         }
@@ -159,6 +167,8 @@ namespace LibraryManager.Api.Repositories
 
             _dbContext.Users.Update(modelUpdate);
             await _dbContext.SaveChangesAsync();
+
+            await _cacheHandler.SetCacheObject<UserModel>(modelUpdate.Id.ToString(), modelUpdate);
 
             return modelDTO;
 

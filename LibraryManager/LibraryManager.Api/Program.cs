@@ -16,6 +16,10 @@ builder.Services.AddEntityFrameworkSqlServer().AddDbContext<LibraryDbContext>(o 
 {
     o.UseSqlServer(builder.Configuration["SqlServer:ConnectionStrings"]);
 });
+builder.Services.AddDbContext<LibraryMongoDbContext>(o =>
+{
+    o.UseMongoDB(builder.Configuration["MongoDb:ConnectionStrings"], builder.Configuration["MongoDb:DataBase"]);
+});
 builder.Services.AddStackExchangeRedisCache(o =>
 {
     o.Configuration = builder.Configuration["Redis:ConnectionStrings"];

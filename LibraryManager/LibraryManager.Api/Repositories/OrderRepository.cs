@@ -1,16 +1,18 @@
-﻿using LibraryManager.Api.Data;
+﻿using LibraryManager.Api.Commons;
+using LibraryManager.Api.Data;
 using LibraryManager.Api.Repositories.Interfaces;
 using LibraryManager.Core.DTOs.Order.InputModel;
 using LibraryManager.Core.Models;
 using Microsoft.EntityFrameworkCore;
+using MongoDB.Bson;
 
 namespace LibraryManager.Api.Repositories
 {
     public class OrderRepository : IOrderRepository
     {
-        private readonly LibraryDbContext _dbContext;
+        private readonly LibraryMongoDbContext _dbContext;
 
-        public OrderRepository(LibraryDbContext dbContext)
+        public OrderRepository(LibraryMongoDbContext dbContext)
         {
             _dbContext = dbContext;
         }
@@ -33,24 +35,25 @@ namespace LibraryManager.Api.Repositories
 
         }
 
+
         public async Task<List<OrderModel>> GetAllOrders(long UserId)
             => await _dbContext.Orders
             .AsNoTracking()
             .Where(x => x.UserId == UserId)
             .ToListAsync();
 
-        public async Task<OrderModel> GetOrderById(long id, long UserId)
+        public async Task<OrderModel> GetOrderById(ObjectId id, long UserId)
             => await _dbContext.Orders
             .AsNoTracking()
             .FirstOrDefaultAsync(x => x.Id == id && x.UserId == UserId) ??
             throw new Exception("The order is not found");
 
 
-        public async Task<UpdateOrderDTO> UpdateOrder(long id, long UserId, UpdateOrderDTO modelDTO)
+        public async Task<UpdateOrderDTO> UpdateOrder(ObjectId id, long UserId, UpdateOrderDTO modelDTO)
         {
-           var modelUpdate = await _dbContext.Orders
-            .FirstOrDefaultAsync(x => x.Id == id && x.UserId == UserId) ??
-            throw new Exception("The order is not found");
+            var modelUpdate = await _dbContext.Orders
+             .FirstOrDefaultAsync(x => x.Id == id && x.UserId == UserId) ??
+             throw new Exception("The order is not found");
 
             modelUpdate.Items = modelDTO.Items;
             modelUpdate.PaymentMethod = modelDTO.PaymentMethod;
@@ -61,7 +64,7 @@ namespace LibraryManager.Api.Repositories
             return modelDTO;
         }
 
-        public async Task<bool> DeleteOrder(long id, long UserId)
+        public async Task<bool> DeleteOrder(ObjectId id, long UserId)
         {
             var modelUpdate = await _dbContext.Orders
            .FirstOrDefaultAsync(x => x.Id == id && x.UserId == UserId) ??

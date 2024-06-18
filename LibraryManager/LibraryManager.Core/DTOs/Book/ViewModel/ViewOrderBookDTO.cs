@@ -1,5 +1,4 @@
-﻿using LibraryManager.Core.DTOs.Author.ViewModel;
-using LibraryManager.Core.Models;
+﻿using LibraryManager.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LibraryManager.Core.DTOs.Book.ViewModel
 {
-    public class ViewBookDTO
+    public class ViewOrderBookDTO
     {
         public long Id { get; set; }
         public string Title { get; set; } = string.Empty;
@@ -16,7 +15,6 @@ namespace LibraryManager.Core.DTOs.Book.ViewModel
         public double Price { get; set; }
         public string Category { get; set; } = string.Empty;
         public long AuthorId { get; set; }
-        public ViewAuthorInBooksDTO? Author { get; set; }
         public DateTime PublishedTime { get; set; }
     }
 }

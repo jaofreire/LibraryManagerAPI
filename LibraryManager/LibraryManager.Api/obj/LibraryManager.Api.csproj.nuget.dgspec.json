@@ -94,6 +94,14 @@
               "target": "Package",
               "version": "[1.20.1, )"
             },
+            "MongoDB.Driver": {
+              "target": "Package",
+              "version": "[2.26.0, )"
+            },
+            "MongoDB.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.1, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.6.2, )"
@@ -167,6 +175,12 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
+          "dependencies": {
+            "MongoDB.Bson": {
+              "target": "Package",
+              "version": "[2.26.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
