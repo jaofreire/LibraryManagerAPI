@@ -1,3 +1,4 @@
+using LibraryManager.Api;
 using LibraryManager.Api.Commons;
 using LibraryManager.Api.Data;
 using LibraryManager.Api.Repositories;
@@ -16,10 +17,12 @@ builder.Services.AddEntityFrameworkSqlServer().AddDbContext<LibraryDbContext>(o 
 {
     o.UseSqlServer(builder.Configuration["SqlServer:ConnectionStrings"]);
 });
+
 builder.Services.AddDbContext<LibraryMongoDbContext>(o =>
 {
     o.UseMongoDB(builder.Configuration["MongoDb:ConnectionStrings"], builder.Configuration["MongoDb:DataBase"]);
 });
+
 builder.Services.AddStackExchangeRedisCache(o =>
 {
     o.Configuration = builder.Configuration["Redis:ConnectionStrings"];
@@ -33,6 +36,16 @@ builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddSingleton<CacheHandler>();
 builder.Services.AddSingleton<HashPassword>();
 
+builder.Services.AddCors(o =>
+{
+    o.AddPolicy(Configurations.PolicyName,
+        policy => policy
+        .WithOrigins([Configurations.BackEndURL, Configurations.FrontEndURL])
+        .AllowAnyHeader()
+        .AllowAnyMethod()
+        .AllowCredentials());
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -41,6 +54,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors(Configurations.PolicyName);
 
 app.UseHttpsRedirection();
 

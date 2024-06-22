@@ -28,7 +28,6 @@ namespace LibraryManager.Api.Map
             builder.Property(x => x.PasswordHash)
                 .IsRequired();
 
-
             builder.Property(x => x.Role)
                 .IsRequired()
                 .HasColumnType("VARCHAR")
