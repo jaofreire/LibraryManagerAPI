@@ -29,11 +29,8 @@ namespace LibraryManager.Api.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.StackTrace);
-                _logger.LogError(ex.Message);
-                _logger.LogError(ex.InnerException.ToString());
-
-                throw new Exception("There is not possible create the book");
+                _logger.LogError(ex, "There is not possible create the book");
+                throw;
             }
         }
 
@@ -46,11 +43,8 @@ namespace LibraryManager.Api.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.StackTrace);
-                _logger.LogError(ex.Message);
-                _logger.LogError(ex.InnerException.ToString());
-
-                throw new Exception("There is not possible get the book");
+                _logger.LogError(ex, "There is not possible get the book");
+                throw;
             }
         }
 
@@ -63,11 +57,8 @@ namespace LibraryManager.Api.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.StackTrace);
-                _logger.LogError(ex.Message);
-                _logger.LogError(ex.InnerException.ToString());
-
-                throw new Exception("There is not possible get the book");
+                _logger.LogError(ex, "There is not possible get the book");
+                throw;
             }
         }
 
@@ -80,11 +71,8 @@ namespace LibraryManager.Api.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.StackTrace);
-                _logger.LogError(ex.Message);
-                _logger.LogError(ex.InnerException.ToString());
-
-                throw new Exception("There is not possible get the book");
+                _logger.LogError(ex, "There is not possible get the book");
+                throw;
             }
         }
 
@@ -97,11 +85,8 @@ namespace LibraryManager.Api.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.StackTrace);
-                _logger.LogError(ex.Message);
-                _logger.LogError(ex.InnerException.ToString());
-
-                throw new Exception("There is not possible get the book");
+                _logger.LogError(ex, "There is not possible get the book");
+                throw;
             }
         }
 
@@ -114,11 +99,8 @@ namespace LibraryManager.Api.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.StackTrace);
-                _logger.LogError(ex.Message);
-                _logger.LogError(ex.InnerException.ToString());
-
-                throw new Exception("There is not possible update the book");
+                _logger.LogError(ex, "There is not possible update the book");
+                throw;
             }
 
         }
@@ -132,11 +114,8 @@ namespace LibraryManager.Api.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.StackTrace);
-                _logger.LogError(ex.Message);
-                _logger.LogError(ex.InnerException.ToString());
-
-                throw new Exception("There is not possible remove the book");
+                _logger.LogError(ex, "There is not possible delete the book");
+                throw;
             }
 
         }

@@ -30,11 +30,8 @@ namespace LibraryManager.Api.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.StackTrace);
-                _logger.LogError(ex.Message);
-                _logger.LogError(ex.InnerException.ToString());
-
-                throw new Exception("There is not possible create the order");
+                _logger.LogError(ex, "There is not possible create the order");
+                throw;
             }
         }
 
@@ -47,11 +44,8 @@ namespace LibraryManager.Api.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.StackTrace);
-                _logger.LogError(ex.Message);
-                _logger.LogError(ex.InnerException.ToString());
-
-                throw new Exception("There is not possible get the order");
+                _logger.LogError(ex, "There is not possible get the order");
+                throw;
             }
         }
 
@@ -64,12 +58,10 @@ namespace LibraryManager.Api.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.StackTrace);
-                _logger.LogError(ex.Message);
-                _logger.LogError(ex.InnerException.ToString());
-
-                throw new Exception("There is not possible get the order");
+                _logger.LogError(ex, "There is not possible get the order");
+                throw;
             }
+
         }
 
         [HttpPut("/order/{id}")]
@@ -81,11 +73,8 @@ namespace LibraryManager.Api.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.StackTrace);
-                _logger.LogError(ex.Message);
-                _logger.LogError(ex.InnerException.ToString());
-
-                throw new Exception("There is not possible update the order");
+                _logger.LogError(ex, "There is not possible update the order");
+                throw;
             }
 
         }
@@ -99,11 +88,8 @@ namespace LibraryManager.Api.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.StackTrace);
-                _logger.LogError(ex.Message);
-                _logger.LogError(ex.InnerException.ToString());
-
-                throw new Exception("There is not possible remove the order");
+                _logger.LogError(ex, "There is not possible delete the order");
+                throw;
             }
 
         }

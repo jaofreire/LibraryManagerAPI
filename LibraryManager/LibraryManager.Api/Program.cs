@@ -13,19 +13,27 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+var stage = Configurations.DevelopmentStage;
 builder.Services.AddEntityFrameworkSqlServer().AddDbContext<LibraryDbContext>(o =>
 {
-    o.UseSqlServer(builder.Configuration["SqlServer:ConnectionStrings"]);
+    o.UseSqlServer(stage == Configurations.DevelopmentStage
+        ? builder.Configuration["SqlServer:ConnectionStrings"]
+        : builder.Configuration["SqlServer:ConnectionStringsProd"]);
 });
 
 builder.Services.AddDbContext<LibraryMongoDbContext>(o =>
 {
-    o.UseMongoDB(builder.Configuration["MongoDb:ConnectionStrings"], builder.Configuration["MongoDb:DataBase"]);
+    o.UseMongoDB(stage == Configurations.DevelopmentStage
+        ? builder.Configuration["MongoDb:ConnectionStrings"]
+        : builder.Configuration["MongoDb:ConnectionStringsProd"], builder.Configuration["MongoDb:DataBase"]);
 });
 
 builder.Services.AddStackExchangeRedisCache(o =>
 {
-    o.Configuration = builder.Configuration["Redis:ConnectionStrings"];
+    o.Configuration = stage == Configurations.DevelopmentStage
+    ? builder.Configuration["Redis:ConnectionStrings"]
+    : builder.Configuration["Redis:ConnectionStringsProd"];
 });
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
@@ -40,7 +48,7 @@ builder.Services.AddCors(o =>
 {
     o.AddPolicy(Configurations.PolicyName,
         policy => policy
-        .WithOrigins([Configurations.BackEndURL, Configurations.FrontEndURL])
+        .WithOrigins([Configurations.FrontEndURL, Configurations.BackEndURL])
         .AllowAnyHeader()
         .AllowAnyMethod()
         .AllowCredentials());

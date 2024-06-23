@@ -28,11 +28,8 @@ namespace LibraryManager.Api.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.StackTrace);
-                _logger.LogError(ex.Message);
-                _logger.LogError(ex.InnerException.ToString());
-
-                throw new Exception("There is not possible create the user");
+                _logger.LogError(ex, "There is not possible register the user");
+                throw;
             }
         }
 
@@ -45,11 +42,8 @@ namespace LibraryManager.Api.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.StackTrace);
-                _logger.LogError(ex.Message);
-                _logger.LogError(ex.InnerException.ToString());
-
-                throw new Exception("There is not possible get the user");
+                _logger.LogError(ex, "There is not possible get the user");
+                throw;
             }
         }
 
@@ -62,11 +56,8 @@ namespace LibraryManager.Api.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.StackTrace);
-                _logger.LogError(ex.Message);
-                _logger.LogError(ex.InnerException.ToString());
-
-                throw new Exception("There is not possible get the user");
+                _logger.LogError(ex, "There is not possible get the user");
+                throw;
             }
         }
 
@@ -79,11 +70,8 @@ namespace LibraryManager.Api.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.StackTrace);
-                _logger.LogError(ex.Message);
-                _logger.LogError(ex.InnerException.ToString());
-
-                throw new Exception("There is not possible get the user");
+                _logger.LogError(ex, "There is not possible get the user");
+                throw;
             }
         }
 
@@ -96,11 +84,8 @@ namespace LibraryManager.Api.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.StackTrace);
-                _logger.LogError(ex.Message);
-                _logger.LogError(ex.InnerException.ToString());
-
-                throw new Exception("There is not possible update the user");
+                _logger.LogError(ex, "There is not possible update the user");
+                throw;
             }
         }
 
@@ -113,11 +98,8 @@ namespace LibraryManager.Api.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.StackTrace);
-                _logger.LogError(ex.Message);
-                _logger.LogError(ex.InnerException.ToString());
-
-                throw new Exception("There is not possible get the user");
+                _logger.LogError(ex, "There is not possible delete the user");
+                throw;
             }
         }
 

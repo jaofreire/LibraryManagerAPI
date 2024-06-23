@@ -31,11 +31,8 @@ namespace LibraryManager.Api.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.StackTrace);
-                _logger.LogError(ex.Message);
-                _logger.LogError(ex.InnerException.ToString());
-
-                throw new Exception("There is not possible create the author");
+                _logger.LogError(ex, "There is not possible register the author");
+                throw;
             }
         }
 
@@ -48,11 +45,8 @@ namespace LibraryManager.Api.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.StackTrace);
-                _logger.LogError(ex.Message);
-                _logger.LogError(ex.InnerException.ToString());
-
-                throw new Exception("There is not possible get the author");
+                _logger.LogError(ex, "There is not possible get the author");
+                throw;
             }
         }
 
@@ -65,11 +59,8 @@ namespace LibraryManager.Api.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.StackTrace);
-                _logger.LogError(ex.Message);
-                _logger.LogError(ex.InnerException.ToString());
-
-                throw new Exception("There is not possible get the author");
+                _logger.LogError(ex, "There is not possible get the author");
+                throw;
             }
         }
 
@@ -82,11 +73,8 @@ namespace LibraryManager.Api.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.StackTrace);
-                _logger.LogError(ex.Message);
-                _logger.LogError(ex.InnerException.ToString());
-
-                throw new Exception("There is not possible update the author");
+                _logger.LogError(ex, "There is not possible update the author");
+                throw;
             }
         }
 
@@ -99,11 +87,8 @@ namespace LibraryManager.Api.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.StackTrace);
-                _logger.LogError(ex.Message);
-                _logger.LogError(ex.InnerException.ToString());
-
-                throw new Exception("There is not possible delete the author");
+                _logger.LogError(ex, "There is not possible delete the author");
+                throw;
             }
         }
     }

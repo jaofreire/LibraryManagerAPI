@@ -1,20 +1,7 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "E:\\estudo C#\\LibraryManager-Repository\\LibraryManagerAPI\\LibraryManager\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{2B9FF826-7232-434E-B5FD-E066C9090736}|LibraryManager.Api\\LibraryManager.Api.csproj|e:\\estudo c#\\librarymanager-repository\\librarymanagerapi\\librarymanager\\librarymanager.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2B9FF826-7232-434E-B5FD-E066C9090736}|LibraryManager.Api\\LibraryManager.Api.csproj|solutionrelative:librarymanager.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2B9FF826-7232-434E-B5FD-E066C9090736}|LibraryManager.Api\\LibraryManager.Api.csproj|e:\\estudo c#\\librarymanager-repository\\librarymanagerapi\\librarymanager\\librarymanager.api\\configurations.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2B9FF826-7232-434E-B5FD-E066C9090736}|LibraryManager.Api\\LibraryManager.Api.csproj|solutionrelative:librarymanager.api\\configurations.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2B9FF826-7232-434E-B5FD-E066C9090736}|LibraryManager.Api\\LibraryManager.Api.csproj|e:\\estudo c#\\librarymanager-repository\\librarymanagerapi\\librarymanager\\librarymanager.api\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{2B9FF826-7232-434E-B5FD-E066C9090736}|LibraryManager.Api\\LibraryManager.Api.csproj|solutionrelative:librarymanager.api\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    }
-  ],
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -22,7 +9,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": -1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -39,45 +26,6 @@
             {
               "$type": "Bookmark",
               "Name": "ST:129:0:{13b12e3e-c1b4-4539-9371-4fe9a0d523fc}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "launchSettings.json",
-              "DocumentMoniker": "E:\\estudo C#\\LibraryManager-Repository\\LibraryManagerAPI\\LibraryManager\\LibraryManager.Api\\Properties\\launchSettings.json",
-              "RelativeDocumentMoniker": "LibraryManager.Api\\Properties\\launchSettings.json",
-              "ToolTip": "E:\\estudo C#\\LibraryManager-Repository\\LibraryManagerAPI\\LibraryManager\\LibraryManager.Api\\Properties\\launchSettings.json",
-              "RelativeToolTip": "LibraryManager.Api\\Properties\\launchSettings.json",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABQAAAAvAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2024-06-22T02:15:47.193Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Configurations.cs",
-              "DocumentMoniker": "E:\\estudo C#\\LibraryManager-Repository\\LibraryManagerAPI\\LibraryManager\\LibraryManager.Api\\Configurations.cs",
-              "RelativeDocumentMoniker": "LibraryManager.Api\\Configurations.cs",
-              "ToolTip": "E:\\estudo C#\\LibraryManager-Repository\\LibraryManagerAPI\\LibraryManager\\LibraryManager.Api\\Configurations.cs",
-              "RelativeToolTip": "LibraryManager.Api\\Configurations.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-22T02:14:19.228Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Program.cs",
-              "DocumentMoniker": "E:\\estudo C#\\LibraryManager-Repository\\LibraryManagerAPI\\LibraryManager\\LibraryManager.Api\\Program.cs",
-              "RelativeDocumentMoniker": "LibraryManager.Api\\Program.cs",
-              "ToolTip": "E:\\estudo C#\\LibraryManager-Repository\\LibraryManagerAPI\\LibraryManager\\LibraryManager.Api\\Program.cs",
-              "RelativeToolTip": "LibraryManager.Api\\Program.cs",
-              "ViewState": "AQIAABkAAAAAAAAAAAAAACkAAAAYAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-22T02:12:22.507Z",
-              "EditorCaption": ""
             }
           ]
         }

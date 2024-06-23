@@ -3,3 +3,4 @@ LibraryManager/LibraryManager.Api/bin/Debug/net8.0/appsettings.Development.json
 LibraryManager/LibraryManager.Api/appsettings.json
 LibraryManager/LibraryManager.Api/bin/Debug/net8.0/appsettings.json
 LibraryManager/LibraryManager.Api/appsettings.Development.json
+LibraryManager/docker-compose.yml

@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibraryManager.Api", "Libra
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibraryManager.Core", "LibraryManager.Core\LibraryManager.Core.csproj", "{9964A11A-2F9C-47BA-ABB9-10028919A798}"
 EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{240A98F5-9326-459C-99EF-5D8126B62C98}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{9964A11A-2F9C-47BA-ABB9-10028919A798}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9964A11A-2F9C-47BA-ABB9-10028919A798}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9964A11A-2F9C-47BA-ABB9-10028919A798}.Release|Any CPU.Build.0 = Release|Any CPU
+		{240A98F5-9326-459C-99EF-5D8126B62C98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{240A98F5-9326-459C-99EF-5D8126B62C98}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{240A98F5-9326-459C-99EF-5D8126B62C98}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{240A98F5-9326-459C-99EF-5D8126B62C98}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
