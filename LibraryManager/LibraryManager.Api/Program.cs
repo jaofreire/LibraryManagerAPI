@@ -14,7 +14,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-var stage = Configurations.DevelopmentStage;
+var stage = Configurations.ProductionStage;
 builder.Services.AddEntityFrameworkSqlServer().AddDbContext<LibraryDbContext>(o =>
 {
     o.UseSqlServer(stage == Configurations.DevelopmentStage

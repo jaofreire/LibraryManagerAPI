@@ -19,9 +19,12 @@ namespace LibraryManager.Api.Commons
             await _cache.SetStringAsync(key, objectJson);
         }
 
-        public async Task<T> GetCacheObject<T>(string key)
+        public async Task<T?> GetCacheObject<T>(string key)
         {
             var fetchedJson = await _cache.GetAsync(key);
+
+            if (fetchedJson is null)
+                return default;
 
             var objectDeserialized = JsonSerializer.Deserialize<T>(fetchedJson);
 

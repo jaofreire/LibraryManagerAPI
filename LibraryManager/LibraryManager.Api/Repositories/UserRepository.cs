@@ -79,7 +79,7 @@ namespace LibraryManager.Api.Repositories
         {
             var modelCache = await _cacheHandler.GetCacheObject<UserModel>(id.ToString());
 
-            if (modelCache != null)
+            if (modelCache != default)
             {
                 var DTOCache = new ViewUserDTO()
                 {
@@ -114,7 +114,7 @@ namespace LibraryManager.Api.Repositories
         {
             var modelCache = await _cacheHandler.GetCacheObject<UserModel>(id.ToString());
 
-            if (modelCache != null)
+            if (modelCache != default)
             {
                 var DTOCache = new ViewValidateCredentialsUserDTO()
                 {
