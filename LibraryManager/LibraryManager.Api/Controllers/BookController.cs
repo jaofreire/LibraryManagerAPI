@@ -76,6 +76,48 @@ namespace LibraryManager.Api.Controllers
             }
         }
 
+        [HttpGet("/book/categories/")]
+        public async Task<ActionResult<List<ViewBookDTO>>> GetByCategories([FromQuery]List<string> categoriesList)
+        {
+            try
+            {
+                return await _bookRepository.GetBooksByCategories(categoriesList);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "There is not possible get the book");
+                throw;
+            }
+        }
+
+        [HttpGet("/book/author/{authorName}")]
+        public async Task<ActionResult<List<ViewBookDTO>>> GetByAuthor(string authorName)
+        {
+            try
+            {
+                return await _bookRepository.GetBookByAuthor(authorName);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "There is not possible get the book");
+                throw;
+            }
+        }
+
+        [HttpGet("/book/authors")]
+        public async Task<ActionResult<List<ViewBookDTO>>> GetByAuthors([FromQuery]List<string> authorNameList)
+        {
+            try
+            {
+                return await _bookRepository.GetBooksByAuthors(authorNameList);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "There is not possible get the book");
+                throw;
+            }
+        }
+
         [HttpGet("/book/name/{name}")]
         public async Task<ActionResult<List<ViewBookDTO>>> GetByName(string name)
         {

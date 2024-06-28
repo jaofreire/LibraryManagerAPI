@@ -4,9 +4,7 @@ using LibraryManager.Api.Repositories.Interfaces;
 using LibraryManager.Core.DTOs.Author.ViewModel;
 using LibraryManager.Core.DTOs.Book.InputModel;
 using LibraryManager.Core.DTOs.Book.ViewModel;
-using LibraryManager.Core.Enums;
 using LibraryManager.Core.Models;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace LibraryManager.Api.Repositories
@@ -40,6 +38,31 @@ namespace LibraryManager.Api.Repositories
             return createBookDTO;
         }
 
+        public async Task<List<CreateBookDTO>> RegisterBooks(List<CreateBookDTO> createBookDTOList)
+        {
+            List<BookModel> modelList = [];
+
+            foreach(var books in createBookDTOList)
+            {
+                var model = new BookModel()
+                {
+                    Title = books.Title,
+                    Description = books.Description,
+                    Price = books.Price,
+                    Category = books.Category,
+                    AuthorId = books.AuthorId,
+                    PublishedTime = books.PublishedTime,
+                };
+
+                modelList.Add(model);
+            }
+
+            await _dbContext.AddRangeAsync(modelList);
+            await _dbContext.SaveChangesAsync();
+
+            return createBookDTOList;
+        }
+
         public async Task<List<ViewBookDTO>> GetAllBooks()
         {
             List<ViewBookDTO> booksDTO = [];
@@ -48,45 +71,6 @@ namespace LibraryManager.Api.Repositories
                 .AsNoTracking()
                 .Include(x => x.Author)
                 .ToListAsync();
-
-            foreach (var booksModel in models)
-            {
-                var AuthorDTO = new ViewAuthorInBooksDTO()
-                {
-                    Id = booksModel.AuthorId,
-                    Name = booksModel.Author.Name,
-                    Bio = booksModel.Author.Bio,
-                    DateOfBirth = booksModel.Author.DateOfBirth
-                };
-
-                var DTO = new ViewBookDTO()
-                {
-                    Id = booksModel.Id,
-                    Title = booksModel.Title,
-                    Description = booksModel.Description,
-                    Price = booksModel.Price,
-                    Category = booksModel.Category,
-                    AuthorId = booksModel.AuthorId,
-                    Author = AuthorDTO,
-                    PublishedTime = booksModel.PublishedTime
-                };
-
-                booksDTO.Add(DTO);
-            }
-
-            return booksDTO;
-        }
-
-        public async Task<List<ViewBookDTO>> GetBookByCategory(string category)
-        {
-            List<ViewBookDTO> booksDTO = [];
-
-            var models = await _dbContext.Books
-                .AsNoTracking()
-                .Where(x => x.Category == category)
-                .Include(x => x.Author)
-                .ToListAsync();
-               
 
             foreach (var booksModel in models)
             {
@@ -147,13 +131,170 @@ namespace LibraryManager.Api.Repositories
             return DTO;
         }
 
+        public async Task<List<ViewBookDTO>> GetBookByCategory(string category)
+        {
+            List<ViewBookDTO> booksDTO = [];
+
+            var models = await _dbContext.Books
+                .AsNoTracking()
+                .Where(x => x.Category == category)
+                .Include(x => x.Author)
+                .ToListAsync();
+               
+
+            foreach (var booksModel in models)
+            {
+                var AuthorDTO = new ViewAuthorInBooksDTO()
+                {
+                    Id = booksModel.AuthorId,
+                    Name = booksModel.Author.Name,
+                    Bio = booksModel.Author.Bio,
+                    DateOfBirth = booksModel.Author.DateOfBirth
+                };
+
+                var DTO = new ViewBookDTO()
+                {
+                    Id = booksModel.Id,
+                    Title = booksModel.Title,
+                    Description = booksModel.Description,
+                    Price = booksModel.Price,
+                    Category = booksModel.Category,
+                    AuthorId = booksModel.AuthorId,
+                    Author = AuthorDTO,
+                    PublishedTime = booksModel.PublishedTime
+                };
+
+                booksDTO.Add(DTO);
+            }
+
+            return booksDTO;
+        }
+
+        public async Task<List<ViewBookDTO>> GetBooksByCategories(List<string> categorysList)
+        {
+            List<ViewBookDTO> booksDTO = [];
+
+            var models = await _dbContext.Books
+                .AsNoTracking()
+                .Where(x => categorysList.Contains(x.Category))
+                .Include(x => x.Author)
+                .ToListAsync();
+
+
+            foreach (var booksModel in models)
+            {
+                var AuthorDTO = new ViewAuthorInBooksDTO()
+                {
+                    Id = booksModel.AuthorId,
+                    Name = booksModel.Author.Name,
+                    Bio = booksModel.Author.Bio,
+                    DateOfBirth = booksModel.Author.DateOfBirth
+                };
+
+                var DTO = new ViewBookDTO()
+                {
+                    Id = booksModel.Id,
+                    Title = booksModel.Title,
+                    Description = booksModel.Description,
+                    Price = booksModel.Price,
+                    Category = booksModel.Category,
+                    AuthorId = booksModel.AuthorId,
+                    Author = AuthorDTO,
+                    PublishedTime = booksModel.PublishedTime
+                };
+
+                booksDTO.Add(DTO);
+            }
+
+            return booksDTO;
+        }
+
+        public async Task<List<ViewBookDTO>> GetBookByAuthor(string authorName)
+        {
+            List<ViewBookDTO> booksDTO = [];
+
+            var models = await _dbContext.Books
+                .AsNoTracking()
+                .Where(x => x.Author.Name.Contains(authorName))
+                .Include(x => x.Author)
+                .ToListAsync();
+
+            foreach ( var booksModel in models)
+            {
+                var AuthorDTO = new ViewAuthorInBooksDTO()
+                {
+                    Id = booksModel.AuthorId,
+                    Name = booksModel.Author.Name,
+                    Bio = booksModel.Author.Bio,
+                    DateOfBirth = booksModel.Author.DateOfBirth
+                };
+
+                var DTO = new ViewBookDTO()
+                {
+                    Id = booksModel.Id,
+                    Title = booksModel.Title,
+                    Description = booksModel.Description,
+                    Price = booksModel.Price,
+                    Category = booksModel.Category,
+                    AuthorId = booksModel.AuthorId,
+                    Author = AuthorDTO,
+                    PublishedTime = booksModel.PublishedTime
+                };
+
+                booksDTO.Add(DTO);
+            }
+
+            return booksDTO;
+                
+        }
+
+        public async Task<List<ViewBookDTO>> GetBooksByAuthors(List<string> authorNameList)
+        {
+            List<ViewBookDTO> booksDTO = [];
+
+            var models = await _dbContext.Books
+                .AsNoTracking()
+                .Where(x => authorNameList.Contains(x.Author.Name.))
+                .Include(x => x.Author)
+                .ToListAsync();
+
+            foreach (var booksModel in models)
+            {
+                var AuthorDTO = new ViewAuthorInBooksDTO()
+                {
+                    Id = booksModel.AuthorId,
+                    Name = booksModel.Author.Name,
+                    Bio = booksModel.Author.Bio,
+                    DateOfBirth = booksModel.Author.DateOfBirth
+                };
+
+                var DTO = new ViewBookDTO()
+                {
+                    Id = booksModel.Id,
+                    Title = booksModel.Title,
+                    Description = booksModel.Description,
+                    Price = booksModel.Price,
+                    Category = booksModel.Category,
+                    AuthorId = booksModel.AuthorId,
+                    Author = AuthorDTO,
+                    PublishedTime = booksModel.PublishedTime
+                };
+
+                booksDTO.Add(DTO);
+            }
+
+            return booksDTO;
+        }
+
+        
+
         public async Task<List<ViewBookDTO>> GetBookByName(string name)
         {
             List<ViewBookDTO> booksDTO = [];
 
             var models = await _dbContext.Books
                 .AsNoTracking()
-                .Where(x => x.Title == name)
+                .Where(x => x.Title.Contains(name))
                 .Include(x => x.Author)
                 .ToListAsync();
 
@@ -187,7 +328,6 @@ namespace LibraryManager.Api.Repositories
             return booksDTO;
         }
 
-
         public async Task<UpdateBookDTO> UpdateBook(long id, UpdateBookDTO updateBookDTO)
         {
             var model = await _dbContext.Books
@@ -207,6 +347,7 @@ namespace LibraryManager.Api.Repositories
             return updateBookDTO;
 
         }
+
         public async Task<bool> DeleteBook(long id)
         {
             var model = await _dbContext.Books
