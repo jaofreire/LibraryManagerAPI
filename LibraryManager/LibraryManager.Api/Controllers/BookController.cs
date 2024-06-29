@@ -34,6 +34,20 @@ namespace LibraryManager.Api.Controllers
             }
         }
 
+        [HttpPost("/books")]
+        public async Task<ActionResult<List<CreateBookDTO>>> RegisterBooks([FromBody]List<CreateBookDTO> DTOList)
+        {
+            try
+            {
+                return await _bookRepository.RegisterBooks(DTOList);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "There is not possible create the book");
+                throw;
+            }
+        }
+
         [HttpGet("/book")]
         public async Task<ActionResult<List<ViewBookDTO>>> GetAll()
         {

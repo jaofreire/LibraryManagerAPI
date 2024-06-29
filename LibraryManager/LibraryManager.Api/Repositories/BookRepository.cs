@@ -6,6 +6,7 @@ using LibraryManager.Core.DTOs.Book.InputModel;
 using LibraryManager.Core.DTOs.Book.ViewModel;
 using LibraryManager.Core.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.SqlServer.Query.Internal;
 
 namespace LibraryManager.Api.Repositories
 {
@@ -254,7 +255,7 @@ namespace LibraryManager.Api.Repositories
 
             var models = await _dbContext.Books
                 .AsNoTracking()
-                .Where(x => authorNameList.Contains(x.Author.Name.))
+                .Where(x => authorNameList.Contains(x.Author.Name))
                 .Include(x => x.Author)
                 .ToListAsync();
 
@@ -286,15 +287,15 @@ namespace LibraryManager.Api.Repositories
             return booksDTO;
         }
 
-        
 
         public async Task<List<ViewBookDTO>> GetBookByName(string name)
         {
             List<ViewBookDTO> booksDTO = [];
 
+
             var models = await _dbContext.Books
                 .AsNoTracking()
-                .Where(x => x.Title.Contains(name))
+                .Where(x => _dbContext.FuzzySearch(x.Title).Contains(_dbContext.FuzzySearch(name)))
                 .Include(x => x.Author)
                 .ToListAsync();
 

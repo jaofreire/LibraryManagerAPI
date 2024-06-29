@@ -35,7 +35,7 @@ namespace LibraryManager.Api.Migrations
                     FirstName = table.Column<string>(type: "NVARCHAR(180)", maxLength: 180, nullable: false),
                     LastName = table.Column<string>(type: "NVARCHAR(40)", maxLength: 40, nullable: false),
                     Email = table.Column<string>(type: "NVARCHAR(255)", maxLength: 255, nullable: false),
-                    PasswordHash = table.Column<string>(type: "NVARCHAR", nullable: false),
+                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Role = table.Column<string>(type: "VARCHAR(8)", maxLength: 8, nullable: false)
                 },
                 constraints: table =>

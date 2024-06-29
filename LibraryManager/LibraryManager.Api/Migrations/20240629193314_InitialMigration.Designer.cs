@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LibraryManager.Api.Migrations
 {
     [DbContext(typeof(LibraryDbContext))]
-    [Migration("20240618212711_ChangePasswordColumnType")]
-    partial class ChangePasswordColumnType
+    [Migration("20240629193314_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

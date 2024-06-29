@@ -12,6 +12,12 @@ namespace LibraryManager.Api.Data
         public DbSet<BookModel> Books { get; set; }
         public DbSet<AuthorModel> Authors { get; set; }
 
+        [DbFunction(name: "SOUNDEX", IsBuiltIn = true)]
+        public string FuzzySearch(string queryString)
+        {
+            throw new NotImplementedException();
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new UserMap());
