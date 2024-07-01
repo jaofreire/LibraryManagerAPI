@@ -30,5 +30,12 @@ namespace LibraryManager.Api.Commons
 
             return objectDeserialized;
         }
+
+        public async Task RefreshCache(string keyValue)
+            => await _cache.RefreshAsync(keyValue);
+
+        public async Task RemoveCache(string keyValue)
+            => await _cache.RemoveAsync(keyValue);
+
     }
 }
