@@ -6,13 +6,13 @@ WORKDIR /app
 EXPOSE 8080
 EXPOSE 8081
 
-
-
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["LibraryManager.Api/LibraryManager.Api.csproj", "LibraryManager.Api/"]
+COPY ["Data/Data.csproj", "Data/"]
 COPY ["LibraryManager.Core/LibraryManager.Core.csproj", "LibraryManager.Core/"]
+COPY ["DependencyInjection/DependencyInjection.csproj", "DependencyInjection/"]
 RUN dotnet restore "./LibraryManager.Api/LibraryManager.Api.csproj"
 COPY . .
 WORKDIR "/src/LibraryManager.Api"

@@ -1,7 +1,6 @@
-﻿using LibraryManager.Api.Repositories.Interfaces;
+﻿using LibraryManager.Core.Interfaces;
 using LibraryManager.Core.DTOs.User.InputModels;
 using LibraryManager.Core.DTOs.User.ViewModels;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LibraryManager.Api.Controllers

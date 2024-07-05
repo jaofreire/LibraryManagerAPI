@@ -1,8 +1,6 @@
-﻿using LibraryManager.Api.Repositories;
-using LibraryManager.Api.Repositories.Interfaces;
+﻿using LibraryManager.Core.Interfaces;
 using LibraryManager.Core.DTOs.Order.InputModel;
 using LibraryManager.Core.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 

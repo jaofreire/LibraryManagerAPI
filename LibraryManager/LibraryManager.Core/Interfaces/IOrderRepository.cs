@@ -2,7 +2,8 @@
 using LibraryManager.Core.Models;
 using MongoDB.Bson;
 
-namespace LibraryManager.Api.Repositories.Interfaces
+
+namespace LibraryManager.Core.Interfaces
 {
     public interface IOrderRepository
     {

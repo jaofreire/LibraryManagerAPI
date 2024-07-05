@@ -1,14 +1,14 @@
-﻿using LibraryManager.Api.Commons;
-using LibraryManager.Api.Data;
-using LibraryManager.Api.Repositories.Interfaces;
+﻿using Data.Context;
+using Data.Services.Utils;
 using LibraryManager.Core.DTOs.User.InputModels;
 using LibraryManager.Core.DTOs.User.ViewModels;
 using LibraryManager.Core.Enums;
+using LibraryManager.Core.Interfaces;
 using LibraryManager.Core.Models;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
-namespace LibraryManager.Api.Repositories
+
+namespace Data.Repositories
 {
     public class UserRepository : IUserRepository
     {
@@ -25,7 +25,7 @@ namespace LibraryManager.Api.Repositories
 
         public async Task<CreateUserDTO> RegisterUser(CreateUserDTO modelDTO)
         {
-           
+
             var passwordHash = _hash.CreatePasswordHash(modelDTO.Password);
 
             var model = new UserModel()
@@ -40,12 +40,12 @@ namespace LibraryManager.Api.Repositories
             await _dbContext.Users.AddAsync(model);
             await _dbContext.SaveChangesAsync();
 
-           var modelCache =  await _dbContext.Users
-                .AsNoTracking()
-                .FirstOrDefaultAsync(x => x.PasswordHash == passwordHash);
+            var modelCache = await _dbContext.Users
+                 .AsNoTracking()
+                 .FirstOrDefaultAsync(x => x.PasswordHash == passwordHash);
 
             await _cacheHandler.SetCacheObject<UserModel>(modelCache.Id.ToString(), modelCache);
-                
+
 
             return modelDTO;
         }
@@ -54,9 +54,9 @@ namespace LibraryManager.Api.Repositories
         {
             List<ViewUserDTO> usersDTO = [];
 
-           var models = await _dbContext.Users
-                .AsNoTracking()
-                .ToListAsync();
+            var models = await _dbContext.Users
+                 .AsNoTracking()
+                 .ToListAsync();
 
 
             foreach (var usersModel in models)
@@ -123,7 +123,7 @@ namespace LibraryManager.Api.Repositories
                     LastName = modelCache.LastName,
                     Email = modelCache.Email,
                     PasswordHash = modelCache.PasswordHash
-                    
+
                 };
 
                 return DTOCache;
@@ -161,7 +161,7 @@ namespace LibraryManager.Api.Repositories
 
             if (IsEqual == false)
             {
-               var newHashPassword = _hash.CreatePasswordHash(modelDTO.Password);
+                var newHashPassword = _hash.CreatePasswordHash(modelDTO.Password);
                 modelUpdate.PasswordHash = newHashPassword;
             }
 

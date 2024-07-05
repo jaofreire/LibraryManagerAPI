@@ -1,11 +1,7 @@
-﻿using LibraryManager.Api.Repositories;
-using LibraryManager.Api.Repositories.Interfaces;
-using LibraryManager.Core.DTOs.Author.InputModel;
+﻿using LibraryManager.Core.DTOs.Author.InputModel;
 using LibraryManager.Core.DTOs.Author.ViewModel;
-using LibraryManager.Core.DTOs.User.InputModels;
-using LibraryManager.Core.DTOs.User.ViewModels;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using LibraryManager.Core.Interfaces;
 
 namespace LibraryManager.Api.Controllers
 {
@@ -28,6 +24,19 @@ namespace LibraryManager.Api.Controllers
             try
             {
                 return await _authorRepository.RegisterAuthor(modelDTO);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "There is not possible register the author");
+                throw;
+            }
+        }
+
+        public async Task<ActionResult<List<CreateAuthorDTO>>> RegisterAuthors(List<CreateAuthorDTO> modelDTO)
+        {
+            try
+            {
+                return await _authorRepository.RegisterAuthors(modelDTO);
             }
             catch (Exception ex)
             {

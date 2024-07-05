@@ -1,9 +1,8 @@
-﻿using LibraryManager.Core.Models;
-using LibraryManager.Core.DTOs;
-using LibraryManager.Core.DTOs.User.InputModels;
+﻿using LibraryManager.Core.DTOs.User.InputModels;
 using LibraryManager.Core.DTOs.User.ViewModels;
 
-namespace LibraryManager.Api.Repositories.Interfaces
+
+namespace LibraryManager.Core.Interfaces
 {
     public interface IUserRepository
     {

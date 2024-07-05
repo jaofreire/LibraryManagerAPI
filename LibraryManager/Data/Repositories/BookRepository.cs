@@ -1,14 +1,15 @@
-﻿using LibraryManager.Api.Commons;
-using LibraryManager.Api.Data;
-using LibraryManager.Api.Repositories.Interfaces;
+﻿using Data.Context;
+using Data.Services.Utils;
 using LibraryManager.Core.DTOs.Author.ViewModel;
 using LibraryManager.Core.DTOs.Book.InputModel;
 using LibraryManager.Core.DTOs.Book.ViewModel;
+using LibraryManager.Core.Interfaces;
 using LibraryManager.Core.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
+using Microsoft.Extensions.Configuration;
 
-namespace LibraryManager.Api.Repositories
+
+namespace Data.Repositories
 {
     public class BookRepository : IBookRepository
     {
@@ -36,7 +37,7 @@ namespace LibraryManager.Api.Repositories
             await _dbContext.Books.AddAsync(model);
             await _dbContext.SaveChangesAsync();
 
-            
+
 
             return createBookDTO;
         }
@@ -45,7 +46,7 @@ namespace LibraryManager.Api.Repositories
         {
             List<BookModel> modelList = [];
 
-            foreach(var books in createBookDTOList)
+            foreach (var books in createBookDTOList)
             {
                 var model = new BookModel()
                 {
@@ -63,7 +64,7 @@ namespace LibraryManager.Api.Repositories
             await _dbContext.AddRangeAsync(modelList);
             await _dbContext.SaveChangesAsync();
 
-            await _cacheHandler.RemoveCache(Configurations.SearchBooksCacheFactor);
+            await _cacheHandler.RemoveCache(DataConfigurations.SearchBooksCacheFactor);
 
             return createBookDTOList;
         }
@@ -71,7 +72,7 @@ namespace LibraryManager.Api.Repositories
         public async Task<List<ViewBookDTO>> GetAllBooks()
         {
 
-            var viewBooksCache = await _cacheHandler.GetCacheObject<List<ViewBookDTO>>(Configurations.SearchBooksCacheFactor);
+            var viewBooksCache = await _cacheHandler.GetCacheObject<List<ViewBookDTO>>(DataConfigurations.SearchBooksCacheFactor);
 
             if (viewBooksCache != default) return viewBooksCache;
 
@@ -108,7 +109,7 @@ namespace LibraryManager.Api.Repositories
                 booksDTO.Add(DTO);
             }
 
-            await _cacheHandler.SetCacheObject<List<ViewBookDTO>>(Configurations.SearchBooksCacheFactor, booksDTO);
+            await _cacheHandler.SetCacheObject<List<ViewBookDTO>>(DataConfigurations.SearchBooksCacheFactor, booksDTO);
 
             return booksDTO;
         }
@@ -148,7 +149,7 @@ namespace LibraryManager.Api.Repositories
         {
             List<ViewBookDTO> booksDTO = [];
 
-            var viewBooksCache = await _cacheHandler.GetCacheObject<List<ViewBookDTO>>(Configurations.SearchBooksCacheFactor);
+            var viewBooksCache = await _cacheHandler.GetCacheObject<List<ViewBookDTO>>(DataConfigurations.SearchBooksCacheFactor);
 
             if (viewBooksCache != default)
             {
@@ -163,13 +164,13 @@ namespace LibraryManager.Api.Repositories
 
                 return booksDTO;
             }
-           
+
             var models = await _dbContext.Books
                 .AsNoTracking()
                 .Where(x => x.Category == category)
                 .Include(x => x.Author)
                 .ToListAsync();
-               
+
 
             foreach (var booksModel in models)
             {
@@ -192,10 +193,8 @@ namespace LibraryManager.Api.Repositories
                     Author = AuthorDTO,
                     PublishedTime = booksModel.PublishedTime
                 };
-
                 booksDTO.Add(DTO);
             }
-
             return booksDTO;
         }
 
@@ -203,7 +202,7 @@ namespace LibraryManager.Api.Repositories
         {
             List<ViewBookDTO> booksDTO = [];
 
-            var viewBooksCache = await _cacheHandler.GetCacheObject<List<ViewBookDTO>>(Configurations.SearchBooksCacheFactor);
+            var viewBooksCache = await _cacheHandler.GetCacheObject<List<ViewBookDTO>>(DataConfigurations.SearchBooksCacheFactor);
 
             if (viewBooksCache != default)
             {
@@ -248,10 +247,8 @@ namespace LibraryManager.Api.Repositories
                     Author = AuthorDTO,
                     PublishedTime = booksModel.PublishedTime
                 };
-
                 booksDTO.Add(DTO);
             }
-
             return booksDTO;
         }
 
@@ -260,7 +257,7 @@ namespace LibraryManager.Api.Repositories
 
             List<ViewBookDTO> booksDTO = [];
 
-            var viewBooksCache = await _cacheHandler.GetCacheObject<List<ViewBookDTO>>(Configurations.SearchBooksCacheFactor);
+            var viewBooksCache = await _cacheHandler.GetCacheObject<List<ViewBookDTO>>(DataConfigurations.SearchBooksCacheFactor);
 
             if (viewBooksCache != default)
             {
@@ -276,14 +273,14 @@ namespace LibraryManager.Api.Repositories
                 return booksDTO;
             }
 
-            
+
             var models = await _dbContext.Books
                 .AsNoTracking()
                 .Where(x => x.Author.Name.Contains(authorName))
                 .Include(x => x.Author)
                 .ToListAsync();
 
-            foreach ( var booksModel in models)
+            foreach (var booksModel in models)
             {
                 var AuthorDTO = new ViewAuthorInBooksDTO()
                 {
@@ -304,19 +301,16 @@ namespace LibraryManager.Api.Repositories
                     Author = AuthorDTO,
                     PublishedTime = booksModel.PublishedTime
                 };
-
                 booksDTO.Add(DTO);
             }
-
             return booksDTO;
-                
         }
 
         public async Task<List<ViewBookDTO>> GetBooksByAuthors(List<string> authorNameList)
         {
 
             List<ViewBookDTO> booksDTO = [];
-            var viewBooksCache = await _cacheHandler.GetCacheObject<List<ViewBookDTO>>(Configurations.SearchBooksCacheFactor);
+            var viewBooksCache = await _cacheHandler.GetCacheObject<List<ViewBookDTO>>(DataConfigurations.SearchBooksCacheFactor);
 
             if (viewBooksCache != default)
             {
@@ -332,7 +326,7 @@ namespace LibraryManager.Api.Repositories
                 return booksDTO;
             }
 
-           
+
             var models = await _dbContext.Books
                 .AsNoTracking()
                 .Where(x => authorNameList.Contains(x.Author.Name))
@@ -424,7 +418,7 @@ namespace LibraryManager.Api.Repositories
             _dbContext.Books.Update(model);
             await _dbContext.SaveChangesAsync();
 
-            await _cacheHandler.RemoveCache(Configurations.SearchBooksCacheFactor);
+            await _cacheHandler.RemoveCache(DataConfigurations.SearchBooksCacheFactor);
 
             return updateBookDTO;
 
@@ -439,7 +433,7 @@ namespace LibraryManager.Api.Repositories
             _dbContext.Books.Remove(model);
             await _dbContext.SaveChangesAsync();
 
-            await _cacheHandler.RemoveCache(Configurations.SearchBooksCacheFactor);
+            await _cacheHandler.RemoveCache(DataConfigurations.SearchBooksCacheFactor);
 
             return true;
         }

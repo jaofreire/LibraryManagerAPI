@@ -3,16 +3,12 @@
   "WorkspaceRootPath": "E:\\estudo C#\\LibraryManager-Repository\\LibraryManagerAPI\\LibraryManager\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{2B9FF826-7232-434E-B5FD-E066C9090736}|LibraryManager.Api\\LibraryManager.Api.csproj|e:\\estudo c#\\librarymanager-repository\\librarymanagerapi\\librarymanager\\librarymanager.api\\configurations.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2B9FF826-7232-434E-B5FD-E066C9090736}|LibraryManager.Api\\LibraryManager.Api.csproj|solutionrelative:librarymanager.api\\configurations.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{2B9FF826-7232-434E-B5FD-E066C9090736}|LibraryManager.Api\\LibraryManager.Api.csproj|e:\\estudo c#\\librarymanager-repository\\librarymanagerapi\\librarymanager\\librarymanager.api\\dockerfile||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{2B9FF826-7232-434E-B5FD-E066C9090736}|LibraryManager.Api\\LibraryManager.Api.csproj|solutionrelative:librarymanager.api\\dockerfile||{8B382828-6202-11D1-8870-0000F87579D2}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2B9FF826-7232-434E-B5FD-E066C9090736}|LibraryManager.Api\\LibraryManager.Api.csproj|e:\\estudo c#\\librarymanager-repository\\librarymanagerapi\\librarymanager\\librarymanager.api\\repositories\\bookrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2B9FF826-7232-434E-B5FD-E066C9090736}|LibraryManager.Api\\LibraryManager.Api.csproj|solutionrelative:librarymanager.api\\repositories\\bookrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2B9FF826-7232-434E-B5FD-E066C9090736}|LibraryManager.Api\\LibraryManager.Api.csproj|e:\\estudo c#\\librarymanager-repository\\librarymanagerapi\\librarymanager\\librarymanager.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{2B9FF826-7232-434E-B5FD-E066C9090736}|LibraryManager.Api\\LibraryManager.Api.csproj|solutionrelative:librarymanager.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+      "AbsoluteMoniker": "D:0:0:{240A98F5-9326-459C-99EF-5D8126B62C98}|docker-compose.dcproj|e:\\estudo c#\\librarymanager-repository\\librarymanagerapi\\librarymanager\\docker-compose.yml||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{240A98F5-9326-459C-99EF-5D8126B62C98}|docker-compose.dcproj|solutionrelative:docker-compose.yml||{8B382828-6202-11D1-8870-0000F87579D2}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,7 +18,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Bookmark",
@@ -42,41 +38,28 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "E:\\estudo C#\\LibraryManager-Repository\\LibraryManagerAPI\\LibraryManager\\LibraryManager.Api\\appsettings.json",
-              "RelativeDocumentMoniker": "LibraryManager.Api\\appsettings.json",
-              "ToolTip": "E:\\estudo C#\\LibraryManager-Repository\\LibraryManagerAPI\\LibraryManager\\LibraryManager.Api\\appsettings.json",
-              "RelativeToolTip": "LibraryManager.Api\\appsettings.json",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAAFAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2024-07-01T14:50:16.009Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "BookRepository.cs",
-              "DocumentMoniker": "E:\\estudo C#\\LibraryManager-Repository\\LibraryManagerAPI\\LibraryManager\\LibraryManager.Api\\Repositories\\BookRepository.cs",
-              "RelativeDocumentMoniker": "LibraryManager.Api\\Repositories\\BookRepository.cs",
-              "ToolTip": "E:\\estudo C#\\LibraryManager-Repository\\LibraryManagerAPI\\LibraryManager\\LibraryManager.Api\\Repositories\\BookRepository.cs",
-              "RelativeToolTip": "LibraryManager.Api\\Repositories\\BookRepository.cs",
-              "ViewState": "AQIAABYAAAAAAAAAAAAgwJAAAAAJAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-28T15:46:41.966Z",
+              "Title": "docker-compose.yml",
+              "DocumentMoniker": "E:\\estudo C#\\LibraryManager-Repository\\LibraryManagerAPI\\LibraryManager\\docker-compose.yml",
+              "RelativeDocumentMoniker": "docker-compose.yml",
+              "ToolTip": "E:\\estudo C#\\LibraryManager-Repository\\LibraryManagerAPI\\LibraryManager\\docker-compose.yml",
+              "RelativeToolTip": "docker-compose.yml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAKAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003775|",
+              "WhenOpened": "2024-07-05T19:06:57.34Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Configurations.cs",
-              "DocumentMoniker": "E:\\estudo C#\\LibraryManager-Repository\\LibraryManagerAPI\\LibraryManager\\LibraryManager.Api\\Configurations.cs",
-              "RelativeDocumentMoniker": "LibraryManager.Api\\Configurations.cs",
-              "ToolTip": "E:\\estudo C#\\LibraryManager-Repository\\LibraryManagerAPI\\LibraryManager\\LibraryManager.Api\\Configurations.cs",
-              "RelativeToolTip": "LibraryManager.Api\\Configurations.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAABCAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-01T13:26:50.631Z",
+              "Title": "Dockerfile",
+              "DocumentMoniker": "E:\\estudo C#\\LibraryManager-Repository\\LibraryManagerAPI\\LibraryManager\\LibraryManager.Api\\Dockerfile",
+              "RelativeDocumentMoniker": "LibraryManager.Api\\Dockerfile",
+              "ToolTip": "E:\\estudo C#\\LibraryManager-Repository\\LibraryManagerAPI\\LibraryManager\\LibraryManager.Api\\Dockerfile",
+              "RelativeToolTip": "LibraryManager.Api\\Dockerfile",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2024-07-05T19:06:29.327Z",
               "EditorCaption": ""
             }
           ]

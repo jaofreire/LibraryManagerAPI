@@ -1,12 +1,11 @@
-﻿using LibraryManager.Api.Commons;
-using LibraryManager.Api.Data;
-using LibraryManager.Api.Repositories.Interfaces;
+﻿using Data.Context;
 using LibraryManager.Core.DTOs.Order.InputModel;
+using LibraryManager.Core.Interfaces;
 using LibraryManager.Core.Models;
 using Microsoft.EntityFrameworkCore;
 using MongoDB.Bson;
 
-namespace LibraryManager.Api.Repositories
+namespace Data.Repositories
 {
     public class OrderRepository : IOrderRepository
     {

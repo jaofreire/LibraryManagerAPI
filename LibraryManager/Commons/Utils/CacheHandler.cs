@@ -1,7 +1,8 @@
 ﻿using Microsoft.Extensions.Caching.Distributed;
 using System.Text.Json;
 
-namespace LibraryManager.Api.Commons
+
+namespace Commons.Utils
 {
     public class CacheHandler
     {
@@ -14,7 +15,7 @@ namespace LibraryManager.Api.Commons
 
         public async Task SetCacheObject<T>(string key, T value)
         {
-            var objectJson =  JsonSerializer.Serialize(value);
+            var objectJson = JsonSerializer.Serialize(value);
 
             await _cache.SetStringAsync(key, objectJson);
         }
@@ -30,12 +31,5 @@ namespace LibraryManager.Api.Commons
 
             return objectDeserialized;
         }
-
-        public async Task RefreshCache(string keyValue)
-            => await _cache.RefreshAsync(keyValue);
-
-        public async Task RemoveCache(string keyValue)
-            => await _cache.RemoveAsync(keyValue);
-
     }
 }

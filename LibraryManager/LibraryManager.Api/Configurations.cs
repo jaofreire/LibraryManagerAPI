@@ -3,9 +3,6 @@
     public static class Configurations
     {
 
-        public static string SearhFactorOrder = "orders";
-        public static string SearchBooksCacheFactor = "get-books";
-
         public static string PolicyName = "sideconnection";
         public static string FrontEndURL = "http://localhost:4200";
         public static string BackEndURL = "https://localhost:7231";

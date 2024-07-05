@@ -1,7 +1,5 @@
 ﻿
-using System.Text;
-
-namespace LibraryManager.Api.Commons
+namespace Commons.Utils
 {
     public class HashPassword
     {
@@ -13,6 +11,5 @@ namespace LibraryManager.Api.Commons
 
         public bool VerifyPassword(string passwordSubmited, string hashPassword)
             => BCrypt.Net.BCrypt.Verify(passwordSubmited, hashPassword);
-
     }
 }

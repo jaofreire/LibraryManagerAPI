@@ -1,12 +1,13 @@
-﻿using LibraryManager.Api.Data;
-using LibraryManager.Api.Repositories.Interfaces;
+﻿using Data.Context;
 using LibraryManager.Core.DTOs.Author.InputModel;
 using LibraryManager.Core.DTOs.Author.ViewModel;
 using LibraryManager.Core.DTOs.Book.ViewModel;
+using LibraryManager.Core.Interfaces;
 using LibraryManager.Core.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace LibraryManager.Api.Repositories
+
+namespace Data.Repositories
 {
     public class AuthorRepository : IAuthorRepository
     {
@@ -21,15 +22,35 @@ namespace LibraryManager.Api.Repositories
         {
             var model = new AuthorModel()
             {
-               Name = modelDTO.Name,
-               Bio = modelDTO.Bio,
-               DateOfBirth = modelDTO.DateOfBirth,
+                Name = modelDTO.Name,
+                Bio = modelDTO.Bio,
+                DateOfBirth = modelDTO.DateOfBirth,
             };
 
             await _dbContext.Authors.AddAsync(model);
             await _dbContext.SaveChangesAsync();
 
             return modelDTO;
+        }
+
+        public async Task<List<CreateAuthorDTO>> RegisterAuthors(List<CreateAuthorDTO> modelsDTO)
+        {
+            List<AuthorModel> modelList = [];
+            foreach(var authors in modelsDTO)
+            {
+                var model = new AuthorModel()
+                {
+                    Name = authors.Name,
+                    Bio = authors.Bio,
+                    DateOfBirth = authors.DateOfBirth,
+                };
+                modelList.Add(model);
+            }
+
+            await _dbContext.Authors.AddRangeAsync(modelList);
+            await _dbContext.SaveChangesAsync();
+
+            return modelsDTO;
         }
 
         public async Task<List<ViewAuthorDTO>> GetAllAuthors()
@@ -80,7 +101,7 @@ namespace LibraryManager.Api.Repositories
         {
             var model = await _dbContext.Authors
                 .AsNoTracking()
-                .FirstOrDefaultAsync(x => x.Id == id) ?? 
+                .FirstOrDefaultAsync(x => x.Id == id) ??
                 throw new Exception("The author is not found");
 
             List<ViewBooksInAuthorDTO> booksListDTO = [];

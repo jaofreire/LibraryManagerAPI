@@ -2,7 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using MongoDB.EntityFrameworkCore.Extensions;
 
-namespace LibraryManager.Api.Data
+
+namespace Data.Context
 {
     public class LibraryMongoDbContext : DbContext
     {
@@ -15,6 +16,5 @@ namespace LibraryManager.Api.Data
             modelBuilder.Entity<OrderModel>().ToCollection("Orders");
             base.OnModelCreating(modelBuilder);
         }
-
     }
 }

@@ -1,8 +1,6 @@
-﻿using LibraryManager.Api.Repositories;
-using LibraryManager.Api.Repositories.Interfaces;
+﻿using LibraryManager.Core.Interfaces;
 using LibraryManager.Core.DTOs.Book.InputModel;
 using LibraryManager.Core.DTOs.Book.ViewModel;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LibraryManager.Api.Controllers
