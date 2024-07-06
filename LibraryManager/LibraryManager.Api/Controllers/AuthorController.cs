@@ -32,6 +32,7 @@ namespace LibraryManager.Api.Controllers
             }
         }
 
+        [HttpPost("/authors")]
         public async Task<ActionResult<List<CreateAuthorDTO>>> RegisterAuthors(List<CreateAuthorDTO> modelDTO)
         {
             try
