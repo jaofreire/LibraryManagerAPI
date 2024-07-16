@@ -6,7 +6,7 @@ namespace LibraryManager.Core.Interfaces
 {
     public interface IBookRepository
     {
-        Task<CreateBookDTO> RegisterBook(IFormFile file ,CreateBookDTO createBookDTO);
+        Task<CreateBookDTO> RegisterBook(CreateBookDTO createBookDTO);
         Task<List<CreateBookDTO>> RegisterBooks(List<CreateBookDTO> createBookDTOList);
         Task<List<ViewBookDTO>> GetAllBooks();
         Task<ViewBookDTO> GetBookById(long id);

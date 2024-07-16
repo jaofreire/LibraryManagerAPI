@@ -28,10 +28,9 @@ namespace Data.Repositories
             _s3Service = s3Service;
         }
 
-        public async Task<CreateBookDTO> RegisterBook(IFormFile file, CreateBookDTO createBookDTO)
+        public async Task<CreateBookDTO> RegisterBook(CreateBookDTO createBookDTO)
         {
-
-            string photoUrl = await _s3Service.PutNewS3ImageObject(file, createBookDTO.Title);
+            string photoUrl = await _s3Service.PutNewS3ImageObject(createBookDTO.FileForm, createBookDTO.Title);
             var model = new BookModel()
             {
                 Title = createBookDTO.Title,

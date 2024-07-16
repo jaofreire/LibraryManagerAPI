@@ -19,11 +19,11 @@ namespace LibraryManager.Api.Controllers
         }
 
         [HttpPost("/book")]
-        public async Task<ActionResult<CreateBookDTO>> Register(IFormFile file, [FromQuery]CreateBookDTO DTO)
+        public async Task<ActionResult<CreateBookDTO>> Register([FromForm]CreateBookDTO DTO)
         {
             try
             {
-                return await _bookRepository.RegisterBook(file, DTO);
+                return await _bookRepository.RegisterBook(DTO);
             }
             catch (Exception ex)
             {
