@@ -19,11 +19,11 @@ namespace LibraryManager.Api.Controllers
         }
 
         [HttpPost("/book")]
-        public async Task<ActionResult<CreateBookDTO>> Register(CreateBookDTO DTO)
+        public async Task<ActionResult<CreateBookDTO>> Register(IFormFile file, [FromQuery]CreateBookDTO DTO)
         {
             try
             {
-                return await _bookRepository.RegisterBook(DTO);
+                return await _bookRepository.RegisterBook(file, DTO);
             }
             catch (Exception ex)
             {
@@ -145,11 +145,11 @@ namespace LibraryManager.Api.Controllers
         }
 
         [HttpPut("/book/{id}")]
-        public async Task<ActionResult<UpdateBookDTO>> Update(long id, UpdateBookDTO DTO)
+        public async Task<ActionResult<UpdateBookDTO>> Update(IFormFile file, long id, UpdateBookDTO DTO)
         {
             try
             {
-                return await _bookRepository.UpdateBook(id,DTO);
+                return await _bookRepository.UpdateBook(file, id, DTO);
             }
             catch (Exception ex)
             {

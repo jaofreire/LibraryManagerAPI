@@ -6,6 +6,8 @@ using Microsoft.Extensions.DependencyInjection;
 using LibraryManager.Core.Interfaces;
 using Data.Services.Utils;
 using Data;
+using Amazon.S3;
+using Data.Services.APIs;
 
 namespace DependencyInjection
 {
@@ -41,6 +43,10 @@ namespace DependencyInjection
                     ? configuration["Redis:ConnectionStrings"]
                     : configuration["Redis:ConnectionStringsProd"];
             });
+
+            service.AddDefaultAWSOptions(configuration.GetAWSOptions());
+            service.AddAWSService<IAmazonS3>().AddTransient<AWSS3>();
+
 
         }
 

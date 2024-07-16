@@ -21,9 +21,7 @@ namespace Data.Mapping
                 .HasMaxLength(180);
 
             builder.Property(x => x.Bio)
-                .IsRequired(false)
-                .HasColumnType("NVARCHAR")
-                .HasMaxLength(260);
+                .IsRequired(false);
 
             builder.Property(x => x.DateOfBirth)
                 .IsRequired();

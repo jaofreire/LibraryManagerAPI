@@ -20,6 +20,10 @@ namespace Data.Mapping
                 .HasColumnType("NVARCHAR")
                 .HasMaxLength(80);
 
+            builder.Property(x => x.PhotoUrl)
+                .IsRequired(false);
+
+
             builder.Property(x => x.Description)
                 .IsRequired(false)
                 .HasColumnType("NVARCHAR")

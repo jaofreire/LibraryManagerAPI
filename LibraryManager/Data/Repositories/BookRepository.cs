@@ -1,10 +1,12 @@
 ﻿using Data.Context;
+using Data.Services.APIs;
 using Data.Services.Utils;
 using LibraryManager.Core.DTOs.Author.ViewModel;
 using LibraryManager.Core.DTOs.Book.InputModel;
 using LibraryManager.Core.DTOs.Book.ViewModel;
 using LibraryManager.Core.Interfaces;
 using LibraryManager.Core.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
@@ -15,18 +17,25 @@ namespace Data.Repositories
     {
         private readonly LibraryDbContext _dbContext;
         private readonly CacheHandler _cacheHandler;
+        private readonly AWSS3 _s3Service;
 
-        public BookRepository(LibraryDbContext dbContext, CacheHandler cacheHandler)
+        public BookRepository(LibraryDbContext dbContext,
+            CacheHandler cacheHandler,
+            AWSS3 s3Service)
         {
             _dbContext = dbContext;
             _cacheHandler = cacheHandler;
+            _s3Service = s3Service;
         }
 
-        public async Task<CreateBookDTO> RegisterBook(CreateBookDTO createBookDTO)
+        public async Task<CreateBookDTO> RegisterBook(IFormFile file, CreateBookDTO createBookDTO)
         {
+
+            string photoUrl = await _s3Service.PutNewS3ImageObject(file, createBookDTO.Title);
             var model = new BookModel()
             {
                 Title = createBookDTO.Title,
+                PhotoUrl = photoUrl,
                 Description = createBookDTO.Description,
                 Price = createBookDTO.Price,
                 Category = createBookDTO.Category,
@@ -34,10 +43,11 @@ namespace Data.Repositories
                 PublishedTime = createBookDTO.PublishedTime,
             };
 
+
             await _dbContext.Books.AddAsync(model);
             await _dbContext.SaveChangesAsync();
 
-
+            await _cacheHandler.RemoveCache(DataConfigurations.SearchBooksCacheFactor);
 
             return createBookDTO;
         }
@@ -98,6 +108,7 @@ namespace Data.Repositories
                 {
                     Id = booksModel.Id,
                     Title = booksModel.Title,
+                    PhotoUrl = booksModel.PhotoUrl,
                     Description = booksModel.Description,
                     Price = booksModel.Price,
                     Category = booksModel.Category,
@@ -134,6 +145,7 @@ namespace Data.Repositories
             {
                 Id = model.Id,
                 Title = model.Title,
+                PhotoUrl = model.PhotoUrl,
                 Description = model.Description,
                 Price = model.Price,
                 Category = model.Category,
@@ -186,6 +198,7 @@ namespace Data.Repositories
                 {
                     Id = booksModel.Id,
                     Title = booksModel.Title,
+                    PhotoUrl = booksModel.PhotoUrl,
                     Description = booksModel.Description,
                     Price = booksModel.Price,
                     Category = booksModel.Category,
@@ -240,6 +253,7 @@ namespace Data.Repositories
                 {
                     Id = booksModel.Id,
                     Title = booksModel.Title,
+                    PhotoUrl = booksModel.PhotoUrl,
                     Description = booksModel.Description,
                     Price = booksModel.Price,
                     Category = booksModel.Category,
@@ -294,6 +308,7 @@ namespace Data.Repositories
                 {
                     Id = booksModel.Id,
                     Title = booksModel.Title,
+                    PhotoUrl = booksModel.PhotoUrl,
                     Description = booksModel.Description,
                     Price = booksModel.Price,
                     Category = booksModel.Category,
@@ -347,6 +362,7 @@ namespace Data.Repositories
                 {
                     Id = booksModel.Id,
                     Title = booksModel.Title,
+                    PhotoUrl = booksModel.PhotoUrl,
                     Description = booksModel.Description,
                     Price = booksModel.Price,
                     Category = booksModel.Category,
@@ -388,6 +404,7 @@ namespace Data.Repositories
                 {
                     Id = booksModel.Id,
                     Title = booksModel.Title,
+                    PhotoUrl = booksModel.PhotoUrl,
                     Description = booksModel.Description,
                     Price = booksModel.Price,
                     Category = booksModel.Category,
@@ -402,13 +419,16 @@ namespace Data.Repositories
             return booksDTO;
         }
 
-        public async Task<UpdateBookDTO> UpdateBook(long id, UpdateBookDTO updateBookDTO)
+        public async Task<UpdateBookDTO> UpdateBook(IFormFile file, long id, UpdateBookDTO updateBookDTO)
         {
             var model = await _dbContext.Books
                 .FindAsync(id) ??
                 throw new Exception("The book is not found");
 
+            string photoUrl = await _s3Service.PutNewS3ImageObject(file, updateBookDTO.Title);
+
             model.Title = updateBookDTO.Title;
+            model.PhotoUrl = photoUrl;
             model.Description = updateBookDTO.Description;
             model.Price = updateBookDTO.Price;
             model.Category = updateBookDTO.Category;
