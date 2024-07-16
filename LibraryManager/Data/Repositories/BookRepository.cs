@@ -31,6 +31,7 @@ namespace Data.Repositories
         public async Task<CreateBookDTO> RegisterBook(CreateBookDTO createBookDTO)
         {
             string photoUrl = await _s3Service.PutNewS3ImageObject(createBookDTO.FileForm, createBookDTO.Title);
+
             var model = new BookModel()
             {
                 Title = createBookDTO.Title,
@@ -41,7 +42,6 @@ namespace Data.Repositories
                 AuthorId = createBookDTO.AuthorId,
                 PublishedTime = createBookDTO.PublishedTime,
             };
-
 
             await _dbContext.Books.AddAsync(model);
             await _dbContext.SaveChangesAsync();

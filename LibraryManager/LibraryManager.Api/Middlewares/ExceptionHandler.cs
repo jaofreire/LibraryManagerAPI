@@ -34,14 +34,22 @@ namespace LibraryManager.Api.Middlewares
             string message = string.Empty;
             HttpStatusCode statusCode = 0;
 
-
             switch (ex)
             {
-               
                 case ArgumentNullException:
                     message = ex.Message;
                     statusCode = HttpStatusCode.NotFound;
                     operation = EOperationType.GetById.ToString();
+                    break;
+
+                case AmazonS3Exception:
+                    message = ex.Message;
+                    if (httpContext.Request.Method == "POST")
+                    {
+                        statusCode = HttpStatusCode.BadRequest;
+                        operation = EOperationType.Create.ToString();
+                    }
+                    statusCode = HttpStatusCode.InternalServerError;
                     break;
 
                 default:

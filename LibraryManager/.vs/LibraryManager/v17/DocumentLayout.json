@@ -3,28 +3,16 @@
   "WorkspaceRootPath": "E:\\estudo C#\\LibraryManager-Repository\\LibraryManagerAPI\\LibraryManager\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{2B9FF826-7232-434E-B5FD-E066C9090736}|LibraryManager.Api\\LibraryManager.Api.csproj|e:\\estudo c#\\librarymanager-repository\\librarymanagerapi\\librarymanager\\librarymanager.api\\middlewares\\exceptionhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2B9FF826-7232-434E-B5FD-E066C9090736}|LibraryManager.Api\\LibraryManager.Api.csproj|solutionrelative:librarymanager.api\\middlewares\\exceptionhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{93AE0150-7094-4AA3-A6B7-7A2FE31CB10F}|Data\\Data.csproj|e:\\estudo c#\\librarymanager-repository\\librarymanagerapi\\librarymanager\\data\\mapping\\bookmap.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{93AE0150-7094-4AA3-A6B7-7A2FE31CB10F}|Data\\Data.csproj|solutionrelative:data\\mapping\\bookmap.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{93AE0150-7094-4AA3-A6B7-7A2FE31CB10F}|Data\\Data.csproj|e:\\estudo c#\\librarymanager-repository\\librarymanagerapi\\librarymanager\\data\\services\\apis\\awss3.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{93AE0150-7094-4AA3-A6B7-7A2FE31CB10F}|Data\\Data.csproj|solutionrelative:data\\services\\apis\\awss3.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{93AE0150-7094-4AA3-A6B7-7A2FE31CB10F}|Data\\Data.csproj|e:\\estudo c#\\librarymanager-repository\\librarymanagerapi\\librarymanager\\data\\repositories\\bookrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{93AE0150-7094-4AA3-A6B7-7A2FE31CB10F}|Data\\Data.csproj|solutionrelative:data\\repositories\\bookrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2B9FF826-7232-434E-B5FD-E066C9090736}|LibraryManager.Api\\LibraryManager.Api.csproj|e:\\estudo c#\\librarymanager-repository\\librarymanagerapi\\librarymanager\\librarymanager.api\\controllers\\bookcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2B9FF826-7232-434E-B5FD-E066C9090736}|LibraryManager.Api\\LibraryManager.Api.csproj|solutionrelative:librarymanager.api\\controllers\\bookcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{2B9FF826-7232-434E-B5FD-E066C9090736}|LibraryManager.Api\\LibraryManager.Api.csproj|e:\\estudo c#\\librarymanager-repository\\librarymanagerapi\\librarymanager\\librarymanager.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2B9FF826-7232-434E-B5FD-E066C9090736}|LibraryManager.Api\\LibraryManager.Api.csproj|solutionrelative:librarymanager.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2B9FF826-7232-434E-B5FD-E066C9090736}|LibraryManager.Api\\LibraryManager.Api.csproj|e:\\estudo c#\\librarymanager-repository\\librarymanagerapi\\librarymanager\\librarymanager.api\\middlewares\\exceptionhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2B9FF826-7232-434E-B5FD-E066C9090736}|LibraryManager.Api\\LibraryManager.Api.csproj|solutionrelative:librarymanager.api\\middlewares\\exceptionhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -54,26 +42,26 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "BookRepository.cs",
-              "DocumentMoniker": "E:\\estudo C#\\LibraryManager-Repository\\LibraryManagerAPI\\LibraryManager\\Data\\Repositories\\BookRepository.cs",
-              "RelativeDocumentMoniker": "Data\\Repositories\\BookRepository.cs",
-              "ToolTip": "E:\\estudo C#\\LibraryManager-Repository\\LibraryManagerAPI\\LibraryManager\\Data\\Repositories\\BookRepository.cs",
-              "RelativeToolTip": "Data\\Repositories\\BookRepository.cs",
-              "ViewState": "AQIAALQBAAAAAAAAAAAAAL4BAAAJAAAA",
+              "DocumentIndex": 2,
+              "Title": "ExceptionHandler.cs",
+              "DocumentMoniker": "E:\\estudo C#\\LibraryManager-Repository\\LibraryManagerAPI\\LibraryManager\\LibraryManager.Api\\Middlewares\\ExceptionHandler.cs",
+              "RelativeDocumentMoniker": "LibraryManager.Api\\Middlewares\\ExceptionHandler.cs",
+              "ToolTip": "E:\\estudo C#\\LibraryManager-Repository\\LibraryManagerAPI\\LibraryManager\\LibraryManager.Api\\Middlewares\\ExceptionHandler.cs",
+              "RelativeToolTip": "LibraryManager.Api\\Middlewares\\ExceptionHandler.cs",
+              "ViewState": "AQIAACkAAAAAAAAAAAAwwAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-16T21:16:38.498Z",
+              "WhenOpened": "2024-07-16T22:32:42.353Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 1,
               "Title": "Program.cs",
               "DocumentMoniker": "E:\\estudo C#\\LibraryManager-Repository\\LibraryManagerAPI\\LibraryManager\\LibraryManager.Api\\Program.cs",
               "RelativeDocumentMoniker": "LibraryManager.Api\\Program.cs",
               "ToolTip": "E:\\estudo C#\\LibraryManager-Repository\\LibraryManagerAPI\\LibraryManager\\LibraryManager.Api\\Program.cs",
               "RelativeToolTip": "LibraryManager.Api\\Program.cs",
-              "ViewState": "AQIAABYAAAAAAAAAAAAAAC4AAAAAAAAA",
+              "ViewState": "AQIAABMAAAAAAAAAAAAAAC4AAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-07-16T19:29:19.212Z",
               "EditorCaption": ""
@@ -81,51 +69,12 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "ExceptionHandler.cs",
-              "DocumentMoniker": "E:\\estudo C#\\LibraryManager-Repository\\LibraryManagerAPI\\LibraryManager\\LibraryManager.Api\\Middlewares\\ExceptionHandler.cs",
-              "RelativeDocumentMoniker": "LibraryManager.Api\\Middlewares\\ExceptionHandler.cs",
-              "ToolTip": "E:\\estudo C#\\LibraryManager-Repository\\LibraryManagerAPI\\LibraryManager\\LibraryManager.Api\\Middlewares\\ExceptionHandler.cs",
-              "RelativeToolTip": "LibraryManager.Api\\Middlewares\\ExceptionHandler.cs",
-              "ViewState": "AQIAAAsAAAAAAAAAAAAswCQAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-16T16:46:26.857Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "BookController.cs",
-              "DocumentMoniker": "E:\\estudo C#\\LibraryManager-Repository\\LibraryManagerAPI\\LibraryManager\\LibraryManager.Api\\Controllers\\BookController.cs",
-              "RelativeDocumentMoniker": "LibraryManager.Api\\Controllers\\BookController.cs",
-              "ToolTip": "E:\\estudo C#\\LibraryManager-Repository\\LibraryManagerAPI\\LibraryManager\\LibraryManager.Api\\Controllers\\BookController.cs",
-              "RelativeToolTip": "LibraryManager.Api\\Controllers\\BookController.cs",
-              "ViewState": "AQIAAI4AAAAAAAAAAAAgwJYAAAANAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-13T15:42:16.804Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "BookMap.cs",
-              "DocumentMoniker": "E:\\estudo C#\\LibraryManager-Repository\\LibraryManagerAPI\\LibraryManager\\Data\\Mapping\\BookMap.cs",
-              "RelativeDocumentMoniker": "Data\\Mapping\\BookMap.cs",
-              "ToolTip": "E:\\estudo C#\\LibraryManager-Repository\\LibraryManagerAPI\\LibraryManager\\Data\\Mapping\\BookMap.cs",
-              "RelativeToolTip": "Data\\Mapping\\BookMap.cs",
-              "ViewState": "AQIAAA0AAAAAAAAAAAA1wBcAAAAjAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-16T00:52:51.291Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
               "Title": "AWSS3.cs",
               "DocumentMoniker": "E:\\estudo C#\\LibraryManager-Repository\\LibraryManagerAPI\\LibraryManager\\Data\\Services\\APIs\\AWSS3.cs",
               "RelativeDocumentMoniker": "Data\\Services\\APIs\\AWSS3.cs",
               "ToolTip": "E:\\estudo C#\\LibraryManager-Repository\\LibraryManagerAPI\\LibraryManager\\Data\\Services\\APIs\\AWSS3.cs",
               "RelativeToolTip": "Data\\Services\\APIs\\AWSS3.cs",
-              "ViewState": "AQIAAD8AAAAAAAAAAADwv0wAAAAOAAAA",
+              "ViewState": "AQIAAD8AAAAAAAAAAADwv04AAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-07-15T03:55:25.247Z",
               "EditorCaption": ""

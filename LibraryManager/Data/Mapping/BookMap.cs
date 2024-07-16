@@ -23,7 +23,6 @@ namespace Data.Mapping
             builder.Property(x => x.PhotoUrl)
                 .IsRequired(false);
 
-
             builder.Property(x => x.Description)
                 .IsRequired(false)
                 .HasColumnType("NVARCHAR")

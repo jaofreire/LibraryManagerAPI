@@ -80,7 +80,7 @@ namespace Data.Services.APIs
             var deleteRequest = new DeleteObjectRequest()
             {
                 BucketName = _bucketName,
-                Key = imageName
+                Key = $"{imageName}.png"
             };
 
             await _s3Client.DeleteObjectAsync(deleteRequest);
