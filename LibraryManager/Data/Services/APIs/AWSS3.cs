@@ -35,17 +35,15 @@ namespace Data.Services.APIs
                 RegionEndpoint = RegionEndpoint.USEast2
             };
 
-
             return new AmazonS3Client(awsCredentials, clientConfig);
         }
 
         public async Task<string> PutNewS3ImageObject(IFormFile file,string bookName)
         {
             var bucketExiste = await AmazonS3Util.DoesS3BucketExistV2Async(_s3Client, _bucketName);
-            Console.WriteLine(_bucketName);
 
             if (bucketExiste == false)
-                throw new DirectoryNotFoundException("The bucket is not found");
+                throw new ArgumentNullException("_bucketName","The bucket is not found");
 
             using(var stream = new MemoryStream())
             {
@@ -63,6 +61,31 @@ namespace Data.Services.APIs
 
             return $"https://{_bucketName}.s3.us-east-2.amazonaws.com/{bookName}.png";
 
+        }
+
+        public async Task<bool> DeleteS3ImageObject(string imageName)
+        {
+            var bucketExiste = await AmazonS3Util.DoesS3BucketExistV2Async(_s3Client, _bucketName);
+
+            if (bucketExiste == false)
+                throw new ArgumentNullException("_bucketName", "The bucket is not found");
+
+            var getRequest = new GetObjectRequest()
+            {
+                BucketName = _bucketName,
+                Key = $"{imageName}.png"
+            };
+            var imageObject = await _s3Client.GetObjectAsync(getRequest);
+
+            var deleteRequest = new DeleteObjectRequest()
+            {
+                BucketName = _bucketName,
+                Key = imageName
+            };
+
+            await _s3Client.DeleteObjectAsync(deleteRequest);
+
+            return true;
         }
     }
 }

@@ -162,16 +162,7 @@ namespace LibraryManager.Api.Controllers
         [HttpDelete("/book/{id}")]
         public async Task<ActionResult<bool>> Delete(long id)
         {
-            try
-            {
-                return await _bookRepository.DeleteBook(id);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "There is not possible delete the book");
-                throw;
-            }
-
+            return await _bookRepository.DeleteBook(id);
         }
 
     }

@@ -447,7 +447,11 @@ namespace Data.Repositories
         {
             var model = await _dbContext.Books
                 .FindAsync(id) ??
-                throw new Exception("The book is not found");
+                throw new ArgumentNullException("id", "The book is not found");
+
+            if(!string.IsNullOrEmpty(model.PhotoUrl))
+                await _s3Service.DeleteS3ImageObject(model.Title);
+
 
             _dbContext.Books.Remove(model);
             await _dbContext.SaveChangesAsync();
