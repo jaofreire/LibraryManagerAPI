@@ -40,10 +40,10 @@ namespace Data.Services.APIs
 
         public async Task<string> PutNewS3ImageObject(IFormFile file,string bookName)
         {
-            var bucketExiste = await AmazonS3Util.DoesS3BucketExistV2Async(_s3Client, _bucketName);
+            var bucketExist = await AmazonS3Util.DoesS3BucketExistV2Async(_s3Client, _bucketName);
 
-            if (bucketExiste == false)
-                throw new ArgumentNullException("_bucketName","The bucket is not found");
+            if (bucketExist == false)
+                throw new KeyNotFoundException("The bucket is not found");
 
             using(var stream = new MemoryStream())
             {
@@ -65,10 +65,10 @@ namespace Data.Services.APIs
 
         public async Task<bool> DeleteS3ImageObject(string imageName)
         {
-            var bucketExiste = await AmazonS3Util.DoesS3BucketExistV2Async(_s3Client, _bucketName);
+            var bucketExist = await AmazonS3Util.DoesS3BucketExistV2Async(_s3Client, _bucketName);
 
-            if (bucketExiste == false)
-                throw new ArgumentNullException("_bucketName", "The bucket is not found");
+            if (bucketExist == false)
+                throw new KeyNotFoundException("The bucket is not found");
 
             var getRequest = new GetObjectRequest()
             {

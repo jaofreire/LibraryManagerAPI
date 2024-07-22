@@ -11,7 +11,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-var stage = Configurations.ProductionStage;
+var stage = Configurations.DevelopmentStage;
 
 builder.Services.AddConfigurations(builder.Configuration, stage);
 

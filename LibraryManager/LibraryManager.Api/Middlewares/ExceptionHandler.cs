@@ -32,11 +32,11 @@ namespace LibraryManager.Api.Middlewares
         {
             string operation = string.Empty;
             string message = string.Empty;
-            HttpStatusCode statusCode = 0;
+            HttpStatusCode statusCode;
 
             switch (ex)
             {
-                case ArgumentNullException:
+                case KeyNotFoundException:
                     message = ex.Message;
                     statusCode = HttpStatusCode.NotFound;
                     operation = EOperationType.GetById.ToString();

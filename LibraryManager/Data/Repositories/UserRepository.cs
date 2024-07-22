@@ -5,7 +5,9 @@ using LibraryManager.Core.DTOs.User.ViewModels;
 using LibraryManager.Core.Enums;
 using LibraryManager.Core.Interfaces;
 using LibraryManager.Core.Models;
+using LibraryManager.Core.Responses;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection.Emit;
 
 
 namespace Data.Repositories
@@ -23,7 +25,7 @@ namespace Data.Repositories
             _hash = hash;
         }
 
-        public async Task<CreateUserDTO> RegisterUser(CreateUserDTO modelDTO)
+        public async Task<APIResponse<CreateUserDTO>> RegisterUser(CreateUserDTO modelDTO)
         {
 
             var passwordHash = _hash.CreatePasswordHash(modelDTO.Password);
@@ -47,10 +49,17 @@ namespace Data.Repositories
             await _cacheHandler.SetCacheObject<UserModel>(modelCache.Id.ToString(), modelCache);
 
 
-            return modelDTO;
+            return new APIResponse<CreateUserDTO>(
+                operationType: EOperationType.Create.ToString(),
+                true,
+                codeReponse: 200,
+                message: "User created successfully!",
+                dataResponse: modelDTO,
+                dataResponseList: null
+                );
         }
 
-        public async Task<List<ViewUserDTO>> GetAllUsers()
+        public async Task<APIResponse<ViewUserDTO>> GetAllUsers()
         {
             List<ViewUserDTO> usersDTO = [];
 
@@ -72,10 +81,17 @@ namespace Data.Repositories
                 usersDTO.Add(DTO);
             }
 
-            return usersDTO;
+            return new APIResponse<ViewUserDTO>(
+                operationType: EOperationType.Get.ToString(),
+                true,
+                codeReponse: 200,
+                message: "Listing all registered users successfully!",
+                dataResponse: null,
+                dataResponseList: usersDTO!
+                );
         }
 
-        public async Task<ViewUserDTO> GetUserById(long id)
+        public async Task<APIResponse<ViewUserDTO>> GetUserById(long id)
         {
             var modelCache = await _cacheHandler.GetCacheObject<UserModel>(id.ToString());
 
@@ -89,13 +105,28 @@ namespace Data.Repositories
                     Email = modelCache.Email
                 };
 
-                return DTOCache;
+                return new APIResponse<ViewUserDTO>(
+               operationType: EOperationType.GetById.ToString(),
+               true,
+               codeReponse: 200,
+               message: "Listing user with specify id successfully!",
+               dataResponse: DTOCache,
+               dataResponseList: null
+               );
             }
 
             var model = await _dbContext.Users
                 .AsNoTracking()
-                .FirstOrDefaultAsync(x => x.Id == id) ??
-                throw new Exception("The user is not found");
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            if(model is null)
+                return new APIResponse<ViewUserDTO>(
+               operationType: EOperationType.GetById.ToString(),
+               false,
+               codeReponse: 404,
+               message: "The user is not found!"
+               );
+
 
             await _cacheHandler.SetCacheObject<UserModel>(model.Id.ToString(), model);
 
@@ -107,10 +138,17 @@ namespace Data.Repositories
                 Email = model.Email
             };
 
-            return DTO;
+            return new APIResponse<ViewUserDTO>(
+               operationType: EOperationType.GetById.ToString(),
+               true,
+               codeReponse: 200,
+               message: "Listing user with specify id successfully!",
+               dataResponse: DTO,
+               dataResponseList: null
+               );
         }
 
-        public async Task<ViewValidateCredentialsUserDTO> GetUserByIdValidateCredentials(long id)
+        public async Task<APIResponse<ViewValidateCredentialsUserDTO>> GetUserByIdValidateCredentials(long id)
         {
             var modelCache = await _cacheHandler.GetCacheObject<UserModel>(id.ToString());
 
@@ -126,13 +164,28 @@ namespace Data.Repositories
 
                 };
 
-                return DTOCache;
+                return new APIResponse<ViewValidateCredentialsUserDTO>(
+               operationType: EOperationType.GetById.ToString(),
+               true,
+               codeReponse: 200,
+               message: "Listing user with specify id to validate their credentials successfully!",
+               dataResponse: DTOCache,
+               dataResponseList: null
+               );
             }
 
             var model = await _dbContext.Users
                 .AsNoTracking()
-                .FirstOrDefaultAsync(x => x.Id == id) ??
-                throw new Exception("The user is not found");
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            if(model is null)
+                return new APIResponse<ViewValidateCredentialsUserDTO>(
+              operationType: EOperationType.GetById.ToString(),
+              false,
+              codeReponse: 404,
+              message: "The user is not found"
+              );
+
 
             await _cacheHandler.SetCacheObject<UserModel>(model.Id.ToString(), model);
 
@@ -145,13 +198,27 @@ namespace Data.Repositories
                 PasswordHash = model.PasswordHash
             };
 
-            return DTO;
+            return new APIResponse<ViewValidateCredentialsUserDTO>(
+               operationType: EOperationType.GetById.ToString(),
+               true,
+               codeReponse: 200,
+               message: "Listing user with specify id to validate their credentials successfully!",
+               dataResponse: DTO,
+               dataResponseList: null
+               );
         }
 
-        public async Task<UpdateInputUserDTO> UpdateUser(long id, UpdateInputUserDTO modelDTO)
+        public async Task<APIResponse<UpdateInputUserDTO>> UpdateUser(long id, UpdateInputUserDTO modelDTO)
         {
-            var modelUpdate = await _dbContext.Users.FindAsync(id) ??
-                throw new Exception("The user is not found");
+            var modelUpdate = await _dbContext.Users.FindAsync(id);
+
+            if(modelUpdate is null)
+                return new APIResponse<UpdateInputUserDTO>(
+               operationType: EOperationType.GetById.ToString(),
+               false,
+               codeReponse: 404,
+               message: "The user is not found"
+               );
 
             modelUpdate.FirstName = modelDTO.FirstName;
             modelUpdate.LastName = modelDTO.LastName;
@@ -170,18 +237,38 @@ namespace Data.Repositories
 
             await _cacheHandler.SetCacheObject<UserModel>(modelUpdate.Id.ToString(), modelUpdate);
 
-            return modelDTO;
+            return new APIResponse<UpdateInputUserDTO>(
+               operationType: EOperationType.Update.ToString(),
+               true,
+               codeReponse: 200,
+               message: "User updated successfully!",
+               dataResponse: modelDTO,
+               dataResponseList: null
+               );
 
         }
-        public async Task<bool> DeleteUser(long id)
+
+        public async Task<APIResponse<ViewUserDTO>> DeleteUser(long id)
         {
-            var model = await _dbContext.Users.FindAsync(id) ??
-                throw new Exception("The user is not found");
+            var model = await _dbContext.Users.FindAsync(id);
+
+            if(model is null)
+                return new APIResponse<ViewUserDTO>(
+               operationType: EOperationType.GetById.ToString(),
+               false,
+               codeReponse: 404,
+               message: "The user is not found"
+               );
 
             _dbContext.Users.Remove(model);
             await _dbContext.SaveChangesAsync();
 
-            return true;
+             return new APIResponse<ViewUserDTO>(
+               operationType: EOperationType.Delete.ToString(),
+               true,
+               codeReponse: 200,
+               message: "User removed successfully!"
+               );
 
         }
     }

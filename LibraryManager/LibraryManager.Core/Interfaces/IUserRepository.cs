@@ -1,16 +1,17 @@
 ﻿using LibraryManager.Core.DTOs.User.InputModels;
 using LibraryManager.Core.DTOs.User.ViewModels;
+using LibraryManager.Core.Responses;
 
 
 namespace LibraryManager.Core.Interfaces
 {
     public interface IUserRepository
     {
-        Task<CreateUserDTO> RegisterUser(CreateUserDTO model);
-        Task<List<ViewUserDTO>> GetAllUsers();
-        Task<ViewUserDTO> GetUserById(long id);
-        Task<ViewValidateCredentialsUserDTO> GetUserByIdValidateCredentials(long id);
-        Task<UpdateInputUserDTO> UpdateUser(long id, UpdateInputUserDTO model);
-        Task<bool> DeleteUser(long id);
+        Task<APIResponse<CreateUserDTO>> RegisterUser(CreateUserDTO model);
+        Task<APIResponse<ViewUserDTO>> GetAllUsers();
+        Task<APIResponse<ViewUserDTO>> GetUserById(long id);
+        Task<APIResponse<ViewValidateCredentialsUserDTO>> GetUserByIdValidateCredentials(long id);
+        Task<APIResponse<UpdateInputUserDTO>> UpdateUser(long id, UpdateInputUserDTO model);
+        Task<APIResponse<ViewUserDTO>> DeleteUser(long id);
     }
 }
