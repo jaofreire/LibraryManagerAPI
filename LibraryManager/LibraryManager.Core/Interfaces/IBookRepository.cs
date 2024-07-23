@@ -1,21 +1,22 @@
 ﻿using LibraryManager.Core.DTOs.Book.InputModel;
 using LibraryManager.Core.DTOs.Book.ViewModel;
+using LibraryManager.Core.Responses;
 using Microsoft.AspNetCore.Http;
 
 namespace LibraryManager.Core.Interfaces
 {
     public interface IBookRepository
     {
-        Task<CreateBookDTO> RegisterBook(CreateBookDTO createBookDTO);
-        Task<List<CreateBookDTO>> RegisterBooks(List<CreateBookDTO> createBookDTOList);
-        Task<List<ViewBookDTO>> GetAllBooks();
-        Task<ViewBookDTO> GetBookById(long id);
-        Task<List<ViewBookDTO>> GetBookByName(string name);
-        Task<List<ViewBookDTO>> GetBookByCategory(string category);
-        Task<List<ViewBookDTO>> GetBooksByCategories(List<string> categorys);
-        Task<List<ViewBookDTO>> GetBookByAuthor(string authorName);
-        Task<List<ViewBookDTO>> GetBooksByAuthors(List<string> authorName);
-        Task<UpdateBookDTO> UpdateBook(IFormFile file , long id, UpdateBookDTO updateBookDTO);
-        Task<bool> DeleteBook(long id);
+        Task<APIResponse<CreateBookDTO>> RegisterBook(CreateBookDTO createBookDTO);
+        Task<APIResponse<CreateBookDTO>> RegisterBooks(List<CreateBookDTO> createBookDTOList);
+        Task<APIResponse<ViewBookDTO>> GetAllBooks();
+        Task<APIResponse<ViewBookDTO>> GetBookById(long id);
+        Task<APIResponse<ViewBookDTO>> GetBookByName(string name);
+        Task<APIResponse<ViewBookDTO>> GetBookByCategory(string category);
+        Task<APIResponse<ViewBookDTO>> GetBooksByCategories(List<string> categorys);
+        Task<APIResponse<ViewBookDTO>> GetBookByAuthor(string authorName);
+        Task<APIResponse<ViewBookDTO>> GetBooksByAuthors(List<string> authorName);
+        Task<APIResponse<UpdateBookDTO>> UpdateBook(IFormFile file , long id, UpdateBookDTO updateBookDTO);
+        Task<APIResponse<ViewBookDTO>> DeleteBook(long id);
     }
 }

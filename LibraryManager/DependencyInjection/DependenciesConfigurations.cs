@@ -8,6 +8,11 @@ using Data.Services.Utils;
 using Data;
 using Amazon.S3;
 using Data.Services.APIs;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Builder;
+using LibraryManager.Core.Services.Token;
 
 namespace DependencyInjection
 {
@@ -18,6 +23,7 @@ namespace DependencyInjection
             service.AddServicesDependencies(configuration, applicationStage);
             service.AddRepositoriesDependencies();
             service.AddUtilsDependencies();
+            service.AddAuthConfigurations(configuration);
         }
 
         public static void AddServicesDependencies(this IServiceCollection service, IConfiguration configuration, string applicationStage)
@@ -46,7 +52,7 @@ namespace DependencyInjection
 
             service.AddDefaultAWSOptions(configuration.GetAWSOptions());
             service.AddAWSService<IAmazonS3>().AddTransient<AWSS3>();
-
+            service.AddSingleton<TokenGenerator>();
 
         }
 
@@ -62,6 +68,47 @@ namespace DependencyInjection
         {
             service.AddSingleton<CacheHandler>();
             service.AddSingleton<HashPassword>();
+        }
+
+        public static void AddAuthConfigurations(this IServiceCollection service, IConfiguration configuration)
+        {
+            var key = Encoding.ASCII.GetBytes(configuration["JWT:Secret"]!);
+
+            service.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+
+            }).AddJwtBearer(options =>
+            {
+                options.RequireHttpsMetadata = true;
+                options.SaveToken = true;
+
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = true,
+                    ValidIssuer = configuration["JWT:Issuer"],
+                    ValidateAudience = true,
+                    ValidAudience = configuration["JWT:Audience"]
+                };
+
+            });
+
+            service.AddAuthorization(options =>
+            {
+                options.AddPolicy("UserPolicy", policy => policy.RequireRole("User"));
+                options.AddPolicy("MerchantPolicy", policy => policy.RequireRole("Merchant"));
+                options.AddPolicy("AdminPolicy", policy => policy.RequireRole("Admin"));
+            });
+            
+        }
+
+        public static void UseAuthConfigurations(this IApplicationBuilder app)
+        {
+            app.UseAuthentication();
+            app.UseAuthorization();
         }
 
     }

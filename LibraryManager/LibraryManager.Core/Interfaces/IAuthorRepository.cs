@@ -1,20 +1,17 @@
 ﻿using LibraryManager.Core.DTOs.Author.InputModel;
 using LibraryManager.Core.DTOs.Author.ViewModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using LibraryManager.Core.Responses;
+
 
 namespace LibraryManager.Core.Interfaces
 {
     public interface IAuthorRepository
     {
-        Task<CreateAuthorDTO> RegisterAuthor(CreateAuthorDTO model);
-        Task<List<CreateAuthorDTO>> RegisterAuthors(List<CreateAuthorDTO> models);
-        Task<List<ViewAuthorDTO>> GetAllAuthors();
-        Task<ViewAuthorDTO> GetAuthorById(long id);
-        Task<UpdateAuthorDTO> UpdateAuthor(long id, UpdateAuthorDTO model);
-        Task<bool> DeleteAuthor(long id);
+        Task<APIResponse<CreateAuthorDTO>> RegisterAuthor(CreateAuthorDTO model);
+        Task<APIResponse<CreateAuthorDTO>> RegisterAuthors(List<CreateAuthorDTO> models);
+        Task<APIResponse<ViewAuthorDTO>> GetAllAuthors();
+        Task<APIResponse<ViewAuthorDTO>> GetAuthorById(long id);
+        Task<APIResponse<UpdateAuthorDTO>> UpdateAuthor(long id, UpdateAuthorDTO model);
+        Task<APIResponse<ViewAuthorDTO>> DeleteAuthor(long id);
     }
 }

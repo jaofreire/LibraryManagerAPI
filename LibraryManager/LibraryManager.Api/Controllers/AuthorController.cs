@@ -2,6 +2,7 @@
 using LibraryManager.Core.DTOs.Author.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using LibraryManager.Core.Interfaces;
+using LibraryManager.Core.Responses;
 
 namespace LibraryManager.Api.Controllers
 {
@@ -10,96 +11,36 @@ namespace LibraryManager.Api.Controllers
     public class AuthorController : ControllerBase
     {
         private readonly IAuthorRepository _authorRepository;
-        private readonly ILogger<AuthorController> _logger;
 
-        public AuthorController(IAuthorRepository authorRepository, ILogger<AuthorController> logger)
+        public AuthorController(IAuthorRepository authorRepository)
         {
             _authorRepository = authorRepository;
-            _logger = logger;
+
         }
 
         [HttpPost("/author")]
-        public async Task<ActionResult<CreateAuthorDTO>> Register(CreateAuthorDTO modelDTO)
-        {
-            try
-            {
-                return await _authorRepository.RegisterAuthor(modelDTO);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "There is not possible register the author");
-                throw;
-            }
-        }
+        public async Task<ActionResult<APIResponse<CreateAuthorDTO>>> Register(CreateAuthorDTO modelDTO)
+            => await _authorRepository.RegisterAuthor(modelDTO);
 
         [HttpPost("/authors")]
-        public async Task<ActionResult<List<CreateAuthorDTO>>> RegisterAuthors(List<CreateAuthorDTO> modelDTO)
-        {
-            try
-            {
-                return await _authorRepository.RegisterAuthors(modelDTO);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "There is not possible register the author");
-                throw;
-            }
-        }
+        public async Task<ActionResult<APIResponse<CreateAuthorDTO>>> RegisterAuthors(List<CreateAuthorDTO> modelDTO)
+            => await _authorRepository.RegisterAuthors(modelDTO);
 
         [HttpGet("/author")]
-        public async Task<ActionResult<List<ViewAuthorDTO>>> GetAll()
-        {
-            try
-            {
-                return await _authorRepository.GetAllAuthors();
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "There is not possible get the author");
-                throw;
-            }
-        }
-
+        public async Task<ActionResult<APIResponse<ViewAuthorDTO>>> GetAll()
+            => await _authorRepository.GetAllAuthors();
+        
         [HttpGet("/author/{id}")]
-        public async Task<ActionResult<ViewAuthorDTO>> GetById(long id)
-        {
-            try
-            {
-                return await _authorRepository.GetAuthorById(id);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "There is not possible get the author");
-                throw;
-            }
-        }
+        public async Task<ActionResult<APIResponse<ViewAuthorDTO>>> GetById(long id)
+            => await _authorRepository.GetAuthorById(id);
 
         [HttpPut("/author/{id}")]
-        public async Task<ActionResult<UpdateAuthorDTO>> Update(long id, UpdateAuthorDTO DTO)
-        {
-            try
-            {
-                return await _authorRepository.UpdateAuthor(id, DTO);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "There is not possible update the author");
-                throw;
-            }
-        }
+        public async Task<ActionResult<APIResponse<UpdateAuthorDTO>>> Update(long id, UpdateAuthorDTO DTO)
+            => await _authorRepository.UpdateAuthor(id, DTO);
 
         [HttpDelete("/author/{id}")]
-        public async Task<ActionResult<bool>> Delete(long id)
-        {
-            try
-            {
-                return await _authorRepository.DeleteAuthor(id);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "There is not possible delete the author");
-                throw;
-            }
-        }
+        public async Task<ActionResult<APIResponse<ViewAuthorDTO>>> Delete(long id)
+            => await _authorRepository.DeleteAuthor(id);
+
     }
 }

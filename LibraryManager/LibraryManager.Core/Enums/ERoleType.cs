@@ -9,6 +9,7 @@ namespace LibraryManager.Core.Enums
     public enum ERoleType
     {
         User = 0,
-        Admin = 1
+        Admin = 1,
+        Merchant = 2
     }
 }

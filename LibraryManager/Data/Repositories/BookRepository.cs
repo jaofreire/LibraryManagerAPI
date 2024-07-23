@@ -4,8 +4,10 @@ using Data.Services.Utils;
 using LibraryManager.Core.DTOs.Author.ViewModel;
 using LibraryManager.Core.DTOs.Book.InputModel;
 using LibraryManager.Core.DTOs.Book.ViewModel;
+using LibraryManager.Core.Enums;
 using LibraryManager.Core.Interfaces;
 using LibraryManager.Core.Models;
+using LibraryManager.Core.Responses;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -28,9 +30,12 @@ namespace Data.Repositories
             _s3Service = s3Service;
         }
 
-        public async Task<CreateBookDTO> RegisterBook(CreateBookDTO createBookDTO)
+        public async Task<APIResponse<CreateBookDTO>> RegisterBook(CreateBookDTO createBookDTO)
         {
-            string photoUrl = await _s3Service.PutNewS3ImageObject(createBookDTO.FileForm, createBookDTO.Title);
+            string? photoUrl = string.Empty;
+
+            if (createBookDTO.FileForm is not null)
+                photoUrl = await _s3Service.PutNewS3ImageObject(createBookDTO.FileForm, createBookDTO.Title);
 
             var model = new BookModel()
             {
@@ -48,10 +53,16 @@ namespace Data.Repositories
 
             await _cacheHandler.RemoveCache(DataConfigurations.SearchBooksCacheFactor);
 
-            return createBookDTO;
+            return new APIResponse<CreateBookDTO>(
+                operationType: EOperationType.Create.ToString(),
+                true,
+                200,
+                message: "Book registered successfully!",
+                dataResponse: createBookDTO,
+                dataResponseList: null);
         }
 
-        public async Task<List<CreateBookDTO>> RegisterBooks(List<CreateBookDTO> createBookDTOList)
+        public async Task<APIResponse<CreateBookDTO>> RegisterBooks(List<CreateBookDTO> createBookDTOList)
         {
             List<BookModel> modelList = [];
 
@@ -75,15 +86,27 @@ namespace Data.Repositories
 
             await _cacheHandler.RemoveCache(DataConfigurations.SearchBooksCacheFactor);
 
-            return createBookDTOList;
+            return new APIResponse<CreateBookDTO>(
+                 operationType: EOperationType.CreateMany.ToString(),
+                 true,
+                 200,
+                 message: "Book registered successfully!",
+                 dataResponse: null,
+                 dataResponseList: createBookDTOList!);
         }
 
-        public async Task<List<ViewBookDTO>> GetAllBooks()
+        public async Task<APIResponse<ViewBookDTO>> GetAllBooks()
         {
 
             var viewBooksCache = await _cacheHandler.GetCacheObject<List<ViewBookDTO>>(DataConfigurations.SearchBooksCacheFactor);
 
-            if (viewBooksCache != default) return viewBooksCache;
+            if (viewBooksCache != default) return new APIResponse<ViewBookDTO>(
+                 operationType: EOperationType.Get.ToString(),
+                 true,
+                 200,
+                 message: "Listing all books registered successfully!",
+                 dataResponse: null,
+                 dataResponseList: viewBooksCache!);
 
 
             var models = await _dbContext.Books
@@ -121,17 +144,29 @@ namespace Data.Repositories
 
             await _cacheHandler.SetCacheObject<List<ViewBookDTO>>(DataConfigurations.SearchBooksCacheFactor, booksDTO);
 
-            return booksDTO;
+            return new APIResponse<ViewBookDTO>(
+                 operationType: EOperationType.Get.ToString(),
+                 true,
+                 200,
+                 message: "Listing all books registered successfully!",
+                 dataResponse: null,
+                 dataResponseList: booksDTO!);
         }
 
-        public async Task<ViewBookDTO> GetBookById(long id)
+        public async Task<APIResponse<ViewBookDTO>> GetBookById(long id)
         {
             var model = await _dbContext.Books
                 .AsNoTracking()
                 .Include(x => x.Author)
-                .FirstOrDefaultAsync(x => x.Id == id) ??
-                throw new Exception("The book is not found");
+                .FirstOrDefaultAsync(x => x.Id == id);
 
+            if (model is null) return new APIResponse<ViewBookDTO>(
+                 operationType: EOperationType.GetById.ToString(),
+                 false,
+                 404,
+                 message: "The book is not found!"
+                 );
+                 
             var AuthorDTO = new ViewAuthorInBooksDTO()
             {
                 Id = model.AuthorId,
@@ -153,10 +188,16 @@ namespace Data.Repositories
                 PublishedTime = model.PublishedTime
             };
 
-            return DTO;
+            return new APIResponse<ViewBookDTO>(
+                 operationType: EOperationType.GetById.ToString(),
+                 true,
+                 200,
+                 message: "Listing book with specify id successfully!",
+                 dataResponse: DTO,
+                 dataResponseList: null);
         }
 
-        public async Task<List<ViewBookDTO>> GetBookByCategory(string category)
+        public async Task<APIResponse<ViewBookDTO>> GetBookByCategory(string category)
         {
             List<ViewBookDTO> booksDTO = [];
 
@@ -173,7 +214,13 @@ namespace Data.Repositories
                     }
                 }
 
-                return booksDTO;
+                return new APIResponse<ViewBookDTO>(
+                 operationType: EOperationType.GetByCategory.ToString(),
+                 true,
+                 200,
+                 message: "Listing book with specify category successfully!",
+                 dataResponse: null,
+                 dataResponseList: booksDTO!);
             }
 
             var models = await _dbContext.Books
@@ -207,10 +254,18 @@ namespace Data.Repositories
                 };
                 booksDTO.Add(DTO);
             }
-            return booksDTO;
+
+            return new APIResponse<ViewBookDTO>(
+                 operationType: EOperationType.GetByCategory.ToString(),
+                 true,
+                 200,
+                 message: "Listing book with specify category successfully!",
+                 dataResponse: null,
+                 dataResponseList: booksDTO!);
+
         }
 
-        public async Task<List<ViewBookDTO>> GetBooksByCategories(List<string> categorysList)
+        public async Task<APIResponse<ViewBookDTO>> GetBooksByCategories(List<string> categorysList)
         {
             List<ViewBookDTO> booksDTO = [];
 
@@ -227,7 +282,13 @@ namespace Data.Repositories
                     }
                 }
 
-                return booksDTO;
+                return new APIResponse<ViewBookDTO>(
+                 operationType: EOperationType.GetByCategory.ToString(),
+                 true,
+                 200,
+                 message: "Listing book with specify categories successfully!",
+                 dataResponse: null,
+                 dataResponseList: booksDTO!);
             }
 
 
@@ -262,10 +323,17 @@ namespace Data.Repositories
                 };
                 booksDTO.Add(DTO);
             }
-            return booksDTO;
+
+            return new APIResponse<ViewBookDTO>(
+                operationType: EOperationType.GetByCategory.ToString(),
+                true,
+                200,
+                message: "Listing book with specify categories successfully!",
+                dataResponse: null,
+                dataResponseList: booksDTO!);
         }
 
-        public async Task<List<ViewBookDTO>> GetBookByAuthor(string authorName)
+        public async Task<APIResponse<ViewBookDTO>> GetBookByAuthor(string authorName)
         {
 
             List<ViewBookDTO> booksDTO = [];
@@ -283,7 +351,13 @@ namespace Data.Repositories
                     }
                 }
 
-                return booksDTO;
+                return new APIResponse<ViewBookDTO>(
+                operationType: EOperationType.GetByAuthor.ToString(),
+                true,
+                200,
+                message: "Listing book with specify author successfully!",
+                dataResponse: null,
+                dataResponseList: booksDTO!);
             }
 
 
@@ -317,10 +391,18 @@ namespace Data.Repositories
                 };
                 booksDTO.Add(DTO);
             }
-            return booksDTO;
+
+            return new APIResponse<ViewBookDTO>(
+                operationType: EOperationType.GetByAuthor.ToString(),
+                true,
+                200,
+                message: "Listing book with specify author successfully!",
+                dataResponse: null,
+                dataResponseList: booksDTO!);
+
         }
 
-        public async Task<List<ViewBookDTO>> GetBooksByAuthors(List<string> authorNameList)
+        public async Task<APIResponse<ViewBookDTO>> GetBooksByAuthors(List<string> authorNameList)
         {
 
             List<ViewBookDTO> booksDTO = [];
@@ -337,9 +419,15 @@ namespace Data.Repositories
                     }
                 }
 
-                return booksDTO;
-            }
+                return new APIResponse<ViewBookDTO>(
+                operationType: EOperationType.GetByAuthors.ToString(),
+                true,
+                200,
+                message: "Listing book with specify authors successfully!",
+                dataResponse: null,
+                dataResponseList: booksDTO!);
 
+            }
 
             var models = await _dbContext.Books
                 .AsNoTracking()
@@ -373,20 +461,24 @@ namespace Data.Repositories
                 booksDTO.Add(DTO);
             }
 
-            return booksDTO;
+            return new APIResponse<ViewBookDTO>(
+                operationType: EOperationType.GetByAuthors.ToString(),
+                true,
+                200,
+                message: "Listing book with specify authors successfully!",
+                dataResponse: null,
+                dataResponseList: booksDTO!);
         }
 
-        public async Task<List<ViewBookDTO>> GetBookByName(string name)
+        public async Task<APIResponse<ViewBookDTO>> GetBookByName(string name)
         {
             List<ViewBookDTO> booksDTO = [];
-
 
             var models = await _dbContext.Books
                 .AsNoTracking()
                 .Where(x => _dbContext.FuzzySearch(x.Title) == _dbContext.FuzzySearch(name))
                 .Include(x => x.Author)
                 .ToListAsync();
-
 
             foreach (var booksModel in models)
             {
@@ -415,14 +507,26 @@ namespace Data.Repositories
                 booksDTO.Add(DTO);
             }
 
-            return booksDTO;
+            return new APIResponse<ViewBookDTO>(
+                operationType: EOperationType.GetByName.ToString(),
+                true,
+                200,
+                message: "Listing book with specify name successfully!",
+                dataResponse: null,
+                dataResponseList: booksDTO!);
         }
 
-        public async Task<UpdateBookDTO> UpdateBook(IFormFile file, long id, UpdateBookDTO updateBookDTO)
+        public async Task<APIResponse<UpdateBookDTO>> UpdateBook(IFormFile file, long id, UpdateBookDTO updateBookDTO)
         {
             var model = await _dbContext.Books
-                .FindAsync(id) ??
-                throw new Exception("The book is not found");
+                .FindAsync(id);
+
+            if (model is null) return new APIResponse<UpdateBookDTO>(
+                 operationType: EOperationType.GetById.ToString(),
+                 false,
+                 404,
+                 message: "The book is not found!"
+                 );
 
             string photoUrl = await _s3Service.PutNewS3ImageObject(file, updateBookDTO.Title);
 
@@ -439,26 +543,45 @@ namespace Data.Repositories
 
             await _cacheHandler.RemoveCache(DataConfigurations.SearchBooksCacheFactor);
 
-            return updateBookDTO;
+            return new APIResponse<UpdateBookDTO>(
+                 operationType: EOperationType.Update.ToString(),
+                 true,
+                 200,
+                 message: "Book updated successfully!",
+                 dataResponse: updateBookDTO,
+                 dataResponseList: null
+                 );
 
         }
 
-        public async Task<bool> DeleteBook(long id)
+        public async Task<APIResponse<ViewBookDTO>> DeleteBook(long id)
         {
             var model = await _dbContext.Books
-                .FindAsync(id) ??
-                throw new KeyNotFoundException("The book is not found");
+                .FindAsync(id);
 
-            if(!string.IsNullOrEmpty(model.PhotoUrl))
+            if (model is null) return new APIResponse<ViewBookDTO>(
+                operationType: EOperationType.GetById.ToString(),
+                false,
+                404,
+                message: "The book is not found!"
+                );
+
+            if (!string.IsNullOrEmpty(model.PhotoUrl))
                 await _s3Service.DeleteS3ImageObject(model.Title);
-
 
             _dbContext.Books.Remove(model);
             await _dbContext.SaveChangesAsync();
 
             await _cacheHandler.RemoveCache(DataConfigurations.SearchBooksCacheFactor);
 
-            return true;
+            return new APIResponse<ViewBookDTO>(
+                 operationType: EOperationType.Delete.ToString(),
+                 true,
+                 200,
+                 message: "Book removed successfully!"
+                 );
+
         }
+
     }
 }

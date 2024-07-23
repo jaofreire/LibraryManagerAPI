@@ -1,6 +1,7 @@
 ﻿using LibraryManager.Core.Interfaces;
 using LibraryManager.Core.DTOs.Book.InputModel;
 using LibraryManager.Core.DTOs.Book.ViewModel;
+using LibraryManager.Core.Responses;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LibraryManager.Api.Controllers
@@ -10,160 +11,55 @@ namespace LibraryManager.Api.Controllers
     public class BookController : ControllerBase
     {
         private readonly IBookRepository _bookRepository;
-        private readonly ILogger<BookController> _logger;
 
-        public BookController(IBookRepository bookRepository, ILogger<BookController> logger)
+        public BookController(IBookRepository bookRepository)
         {
             _bookRepository = bookRepository;
-            _logger = logger;
         }
 
         [HttpPost("/book")]
-        public async Task<ActionResult<CreateBookDTO>> Register([FromForm]CreateBookDTO DTO)
-        {
-            try
-            {
-                return await _bookRepository.RegisterBook(DTO);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "There is not possible create the book");
-                throw;
-            }
-        }
+        public async Task<ActionResult<APIResponse<CreateBookDTO>>> Register([FromForm]CreateBookDTO DTO)
+            => await _bookRepository.RegisterBook(DTO);
 
         [HttpPost("/books")]
-        public async Task<ActionResult<List<CreateBookDTO>>> RegisterBooks([FromBody]List<CreateBookDTO> DTOList)
-        {
-            try
-            {
-                return await _bookRepository.RegisterBooks(DTOList);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "There is not possible create the book");
-                throw;
-            }
-        }
+        public async Task<ActionResult<APIResponse<CreateBookDTO>>> RegisterBooks([FromBody]List<CreateBookDTO> DTOList)
+            => await _bookRepository.RegisterBooks(DTOList);
 
         [HttpGet("/book")]
-        public async Task<ActionResult<List<ViewBookDTO>>> GetAll()
-        {
-            try
-            {
-                return await _bookRepository.GetAllBooks();
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "There is not possible get the book");
-                throw;
-            }
-        }
+        public async Task<ActionResult<APIResponse<ViewBookDTO>>> GetAll()
+            => await _bookRepository.GetAllBooks();
 
         [HttpGet("/book/{id}")]
-        public async Task<ActionResult<ViewBookDTO>> GetById(long id)
-        {
-            try
-            {
-                return await _bookRepository.GetBookById(id);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "There is not possible get the book");
-                throw;
-            }
-        }
+        public async Task<ActionResult<APIResponse<ViewBookDTO>>> GetById(long id)
+            => await _bookRepository.GetBookById(id);
 
         [HttpGet("/book/category/{category}")]
-        public async Task<ActionResult<List<ViewBookDTO>>> GetByCategory(string category)
-        {
-            try
-            {
-                return await _bookRepository.GetBookByCategory(category);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "There is not possible get the book");
-                throw;
-            }
-        }
+        public async Task<ActionResult<APIResponse<ViewBookDTO>>> GetByCategory(string category)
+            => await _bookRepository.GetBookByCategory(category);
 
         [HttpGet("/book/categories/")]
-        public async Task<ActionResult<List<ViewBookDTO>>> GetByCategories([FromQuery]List<string> categoriesList)
-        {
-            try
-            {
-                return await _bookRepository.GetBooksByCategories(categoriesList);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "There is not possible get the book");
-                throw;
-            }
-        }
+        public async Task<ActionResult<APIResponse<ViewBookDTO>>> GetByCategories([FromQuery]List<string> categoriesList)
+            => await _bookRepository.GetBooksByCategories(categoriesList);
 
         [HttpGet("/book/author/{authorName}")]
-        public async Task<ActionResult<List<ViewBookDTO>>> GetByAuthor(string authorName)
-        {
-            try
-            {
-                return await _bookRepository.GetBookByAuthor(authorName);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "There is not possible get the book");
-                throw;
-            }
-        }
+        public async Task<ActionResult<APIResponse<ViewBookDTO>>> GetByAuthor(string authorName)
+            => await _bookRepository.GetBookByAuthor(authorName);
 
         [HttpGet("/book/authors")]
-        public async Task<ActionResult<List<ViewBookDTO>>> GetByAuthors([FromQuery]List<string> authorNameList)
-        {
-            try
-            {
-                return await _bookRepository.GetBooksByAuthors(authorNameList);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "There is not possible get the book");
-                throw;
-            }
-        }
+        public async Task<ActionResult<APIResponse<ViewBookDTO>>> GetByAuthors([FromQuery]List<string> authorNameList)
+            => await _bookRepository.GetBooksByAuthors(authorNameList);
 
         [HttpGet("/book/name/{name}")]
-        public async Task<ActionResult<List<ViewBookDTO>>> GetByName(string name)
-        {
-            try
-            {
-                return await _bookRepository.GetBookByName(name);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "There is not possible get the book");
-                throw;
-            }
-        }
+        public async Task<ActionResult<APIResponse<ViewBookDTO>>> GetByName(string name)
+            => await _bookRepository.GetBookByName(name);
 
         [HttpPut("/book/{id}")]
-        public async Task<ActionResult<UpdateBookDTO>> Update(IFormFile file, long id, UpdateBookDTO DTO)
-        {
-            try
-            {
-                return await _bookRepository.UpdateBook(file, id, DTO);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "There is not possible update the book");
-                throw;
-            }
-
-        }
+        public async Task<ActionResult<APIResponse<UpdateBookDTO>>> Update(IFormFile file, long id, UpdateBookDTO DTO)
+            => await _bookRepository.UpdateBook(file, id, DTO);
 
         [HttpDelete("/book/{id}")]
-        public async Task<ActionResult<bool>> Delete(long id)
-        {
-            return await _bookRepository.DeleteBook(id);
-        }
+        public async Task<ActionResult<APIResponse<ViewBookDTO>>> Delete(long id)
+            => await _bookRepository.DeleteBook(id);
 
     }
 }

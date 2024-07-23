@@ -2,8 +2,10 @@
 using LibraryManager.Core.DTOs.Author.InputModel;
 using LibraryManager.Core.DTOs.Author.ViewModel;
 using LibraryManager.Core.DTOs.Book.ViewModel;
+using LibraryManager.Core.Enums;
 using LibraryManager.Core.Interfaces;
 using LibraryManager.Core.Models;
+using LibraryManager.Core.Responses;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -18,7 +20,7 @@ namespace Data.Repositories
             _dbContext = dbContext;
         }
 
-        public async Task<CreateAuthorDTO> RegisterAuthor(CreateAuthorDTO modelDTO)
+        public async Task<APIResponse<CreateAuthorDTO>> RegisterAuthor(CreateAuthorDTO modelDTO)
         {
             var model = new AuthorModel()
             {
@@ -30,10 +32,17 @@ namespace Data.Repositories
             await _dbContext.Authors.AddAsync(model);
             await _dbContext.SaveChangesAsync();
 
-            return modelDTO;
+            return new APIResponse<CreateAuthorDTO>(
+                operationType: EOperationType.Create.ToString(),
+                true,
+                200,
+                message: "Author registered successfully!",
+                dataResponse: modelDTO,
+                dataResponseList: null
+                );
         }
 
-        public async Task<List<CreateAuthorDTO>> RegisterAuthors(List<CreateAuthorDTO> modelsDTO)
+        public async Task<APIResponse<CreateAuthorDTO>> RegisterAuthors(List<CreateAuthorDTO> modelsDTO)
         {
             List<AuthorModel> modelList = [];
             foreach(var authors in modelsDTO)
@@ -50,10 +59,17 @@ namespace Data.Repositories
             await _dbContext.Authors.AddRangeAsync(modelList);
             await _dbContext.SaveChangesAsync();
 
-            return modelsDTO;
+            return new APIResponse<CreateAuthorDTO>(
+                operationType: EOperationType.CreateMany.ToString(),
+                true,
+                200,
+                message: "Authors registered successfully!",
+                dataResponse: null,
+                dataResponseList: modelsDTO!
+                );
         }
 
-        public async Task<List<ViewAuthorDTO>> GetAllAuthors()
+        public async Task<APIResponse<ViewAuthorDTO>> GetAllAuthors()
         {
             List<ViewAuthorDTO> authorsDTO = [];
 
@@ -94,15 +110,28 @@ namespace Data.Repositories
                 authorsDTO.Add(DTO);
             }
 
-            return authorsDTO;
+            return new APIResponse<ViewAuthorDTO>(
+                 operationType: EOperationType.Get.ToString(),
+                 true,
+                 200,
+                 message: "Listing all authors registered successfully!",
+                 dataResponse: null,
+                 dataResponseList: authorsDTO!
+                 );
         }
 
-        public async Task<ViewAuthorDTO> GetAuthorById(long id)
+        public async Task<APIResponse<ViewAuthorDTO>> GetAuthorById(long id)
         {
             var model = await _dbContext.Authors
                 .AsNoTracking()
-                .FirstOrDefaultAsync(x => x.Id == id) ??
-                throw new Exception("The author is not found");
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            if(model is null) return new APIResponse<ViewAuthorDTO>(
+                 operationType: EOperationType.GetById.ToString(),
+                 false,
+                 404,
+                 message: "The author is not found"
+                 );
 
             List<ViewBooksInAuthorDTO> booksListDTO = [];
             foreach (var books in model.Books)
@@ -130,14 +159,27 @@ namespace Data.Repositories
                 Books = booksListDTO
             };
 
-            return DTO;
+            return new APIResponse<ViewAuthorDTO>(
+                 operationType: EOperationType.GetById.ToString(),
+                 true,
+                 200,
+                 message: "Listing authors with specify id successfully!",
+                 dataResponse: DTO,
+                 dataResponseList: null
+                 );
         }
 
-        public async Task<UpdateAuthorDTO> UpdateAuthor(long id, UpdateAuthorDTO modelDTO)
+        public async Task<APIResponse<UpdateAuthorDTO>> UpdateAuthor(long id, UpdateAuthorDTO modelDTO)
         {
             var modelUpdate = await _dbContext.Authors
-                .FindAsync(id) ??
-                throw new Exception("The author is not found");
+                .FindAsync(id);
+
+            if(modelUpdate is null) return new APIResponse<UpdateAuthorDTO>(
+                 operationType: EOperationType.GetById.ToString(),
+                 false,
+                 404,
+                 message: "The author is not found"
+                 );
 
             modelUpdate.Name = modelDTO.Name;
             modelUpdate.Bio = modelDTO.Bio;
@@ -146,19 +188,40 @@ namespace Data.Repositories
             _dbContext.Authors.Update(modelUpdate);
             await _dbContext.SaveChangesAsync();
 
-            return modelDTO;
+            return new APIResponse<UpdateAuthorDTO>(
+                 operationType: EOperationType.Update.ToString(),
+                 true,
+                 200,
+                 message: "Author updated successfully!",
+                 dataResponse: modelDTO,
+                 dataResponseList: null
+                 );
+
         }
 
-        public async Task<bool> DeleteAuthor(long id)
+        public async Task<APIResponse<ViewAuthorDTO>> DeleteAuthor(long id)
         {
             var model = await _dbContext.Authors
-                .FindAsync(id) ??
-                throw new Exception("The author is not found");
+                .FindAsync(id);
+
+            if(model is null) return new APIResponse<ViewAuthorDTO>(
+                 operationType: EOperationType.GetById.ToString(),
+                 false,
+                 404,
+                 message: "The author is not found"
+                 );
 
             _dbContext.Authors.Remove(model);
             await _dbContext.SaveChangesAsync();
 
-            return true;
+            return new APIResponse<ViewAuthorDTO>(
+                 operationType: EOperationType.Delete.ToString(),
+                 true,
+                 200,
+                 message: "Author updated successfully!"
+                 );
+
         }
+
     }
 }
