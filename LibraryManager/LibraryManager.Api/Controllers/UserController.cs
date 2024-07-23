@@ -33,9 +33,9 @@ namespace LibraryManager.Api.Controllers
             => await _userRepository.GetUserById(id);
 
 
-        [HttpGet("/validateCredentials/{id}")]
-        public async Task<ActionResult<APIResponse<ViewValidateCredentialsUserDTO>>> GetByIdValidateCredentials(long id)
-            => await _userRepository.GetUserByIdValidateCredentials(id);
+        [HttpGet("/validateCredentials")]
+        public async Task<ActionResult<APIResponse<ViewValidateCredentialsUserDTO>>> ValidateCredentials([FromQuery]ValidateCredentialsUserDTO DTOresquest)
+            => await _userRepository.ValidateUserCredentials(DTOresquest);
 
 
         [HttpPut("/user/{id}")]

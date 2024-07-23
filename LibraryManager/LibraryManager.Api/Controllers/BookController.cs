@@ -3,6 +3,8 @@ using LibraryManager.Core.DTOs.Book.InputModel;
 using LibraryManager.Core.DTOs.Book.ViewModel;
 using LibraryManager.Core.Responses;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using Amazon.Auth.AccessControlPolicy;
 
 namespace LibraryManager.Api.Controllers
 {
@@ -17,6 +19,8 @@ namespace LibraryManager.Api.Controllers
             _bookRepository = bookRepository;
         }
 
+
+        [Authorize(Policy = "MerchantPolicy")]
         [HttpPost("/book")]
         public async Task<ActionResult<APIResponse<CreateBookDTO>>> Register([FromForm]CreateBookDTO DTO)
             => await _bookRepository.RegisterBook(DTO);

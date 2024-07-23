@@ -6,8 +6,8 @@ using LibraryManager.Core.Enums;
 using LibraryManager.Core.Interfaces;
 using LibraryManager.Core.Models;
 using LibraryManager.Core.Responses;
+using LibraryManager.Core.Services.Utils;
 using Microsoft.EntityFrameworkCore;
-using System.Reflection.Emit;
 
 
 namespace Data.Repositories
@@ -28,26 +28,18 @@ namespace Data.Repositories
         public async Task<APIResponse<CreateUserDTO>> RegisterUser(CreateUserDTO modelDTO)
         {
 
-            var passwordHash = _hash.CreatePasswordHash(modelDTO.Password);
+            modelDTO.Password = _hash.CreatePasswordHash(modelDTO.Password);
 
-            var model = new UserModel()
-            {
-                FirstName = modelDTO.FirstName,
-                LastName = modelDTO.LastName,
-                Email = modelDTO.Email,
-                PasswordHash = passwordHash,
-                Role = ERoleType.User,
-            };
+            var model = modelDTO.ToModel();
 
             await _dbContext.Users.AddAsync(model);
             await _dbContext.SaveChangesAsync();
 
             var modelCache = await _dbContext.Users
                  .AsNoTracking()
-                 .FirstOrDefaultAsync(x => x.PasswordHash == passwordHash);
+                 .FirstOrDefaultAsync(x => x.PasswordHash == model.PasswordHash);
 
             await _cacheHandler.SetCacheObject<UserModel>(modelCache.Id.ToString(), modelCache);
-
 
             return new APIResponse<CreateUserDTO>(
                 operationType: EOperationType.Create.ToString(),
@@ -148,35 +140,13 @@ namespace Data.Repositories
                );
         }
 
-        public async Task<APIResponse<ViewValidateCredentialsUserDTO>> GetUserByIdValidateCredentials(long id)
+        public async Task<APIResponse<ViewValidateCredentialsUserDTO>> ValidateUserCredentials(ValidateCredentialsUserDTO DTOrequest)
         {
-            var modelCache = await _cacheHandler.GetCacheObject<UserModel>(id.ToString());
-
-            if (modelCache != default)
-            {
-                var DTOCache = new ViewValidateCredentialsUserDTO()
-                {
-                    Id = modelCache.Id,
-                    FirstName = modelCache.FirstName,
-                    LastName = modelCache.LastName,
-                    Email = modelCache.Email,
-                    PasswordHash = modelCache.PasswordHash
-
-                };
-
-                return new APIResponse<ViewValidateCredentialsUserDTO>(
-               operationType: EOperationType.GetById.ToString(),
-               true,
-               codeReponse: 200,
-               message: "Listing user with specify id to validate their credentials successfully!",
-               dataResponse: DTOCache,
-               dataResponseList: null
-               );
-            }
-
+            
             var model = await _dbContext.Users
                 .AsNoTracking()
-                .FirstOrDefaultAsync(x => x.Id == id);
+                .FirstOrDefaultAsync(x => x.FirstName + " " + x.LastName == DTOrequest.Name
+                && x.Email == DTOrequest.Email);
 
             if(model is null)
                 return new APIResponse<ViewValidateCredentialsUserDTO>(
@@ -186,23 +156,23 @@ namespace Data.Repositories
               message: "The user is not found"
               );
 
+            bool IsCorretPassword = _hash.VerifyPassword(DTOrequest.Password, model.PasswordHash);
 
-            await _cacheHandler.SetCacheObject<UserModel>(model.Id.ToString(), model);
+            if(IsCorretPassword == false)
+                return new APIResponse<ViewValidateCredentialsUserDTO>(
+              operationType: EOperationType.ValidateCredentials.ToString(),
+              false,
+              codeReponse: 401,
+              message: "Some credential is incorret, try again"
+              );
 
-            var DTO = new ViewValidateCredentialsUserDTO()
-            {
-                Id = model.Id,
-                FirstName = model.FirstName,
-                LastName = model.LastName,
-                Email = model.Email,
-                PasswordHash = model.PasswordHash
-            };
+            var DTO = model.ToViewValidateCredentialsDTO();
 
             return new APIResponse<ViewValidateCredentialsUserDTO>(
-               operationType: EOperationType.GetById.ToString(),
+               operationType: EOperationType.ValidateCredentials.ToString(),
                true,
                codeReponse: 200,
-               message: "Listing user with specify id to validate their credentials successfully!",
+               message: "Credentials validate successfully!",
                dataResponse: DTO,
                dataResponseList: null
                );

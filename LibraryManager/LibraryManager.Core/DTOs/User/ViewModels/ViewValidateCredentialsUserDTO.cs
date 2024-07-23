@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using LibraryManager.Core.Enums;
 
 namespace LibraryManager.Core.DTOs.User.ViewModels
 {
@@ -13,5 +9,6 @@ namespace LibraryManager.Core.DTOs.User.ViewModels
         public string LastName { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;
         public string PasswordHash { get; set; } = string.Empty;
+        public ERoleType Role { get; set; }
     }
 }

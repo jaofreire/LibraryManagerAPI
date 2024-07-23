@@ -10,7 +10,7 @@ namespace LibraryManager.Core.Interfaces
         Task<APIResponse<CreateUserDTO>> RegisterUser(CreateUserDTO model);
         Task<APIResponse<ViewUserDTO>> GetAllUsers();
         Task<APIResponse<ViewUserDTO>> GetUserById(long id);
-        Task<APIResponse<ViewValidateCredentialsUserDTO>> GetUserByIdValidateCredentials(long id);
+        Task<APIResponse<ViewValidateCredentialsUserDTO>> ValidateUserCredentials(ValidateCredentialsUserDTO DTOrequest);
         Task<APIResponse<UpdateInputUserDTO>> UpdateUser(long id, UpdateInputUserDTO model);
         Task<APIResponse<ViewUserDTO>> DeleteUser(long id);
     }

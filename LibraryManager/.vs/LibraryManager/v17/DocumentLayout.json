@@ -1,20 +1,7 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "E:\\estudo C#\\LibraryManager-Repository\\LibraryManagerAPI\\LibraryManager\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{2B9FF826-7232-434E-B5FD-E066C9090736}|LibraryManager.Api\\LibraryManager.Api.csproj|e:\\estudo c#\\librarymanager-repository\\librarymanagerapi\\librarymanager\\librarymanager.api\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2B9FF826-7232-434E-B5FD-E066C9090736}|LibraryManager.Api\\LibraryManager.Api.csproj|solutionrelative:librarymanager.api\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2B9FF826-7232-434E-B5FD-E066C9090736}|LibraryManager.Api\\LibraryManager.Api.csproj|e:\\estudo c#\\librarymanager-repository\\librarymanagerapi\\librarymanager\\librarymanager.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2B9FF826-7232-434E-B5FD-E066C9090736}|LibraryManager.Api\\LibraryManager.Api.csproj|solutionrelative:librarymanager.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9964A11A-2F9C-47BA-ABB9-10028919A798}|LibraryManager.Core\\LibraryManager.Core.csproj|e:\\estudo c#\\librarymanager-repository\\librarymanagerapi\\librarymanager\\librarymanager.core\\services\\token\\tokengenerator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9964A11A-2F9C-47BA-ABB9-10028919A798}|LibraryManager.Core\\LibraryManager.Core.csproj|solutionrelative:librarymanager.core\\services\\token\\tokengenerator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    }
-  ],
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -22,7 +9,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": -1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -43,45 +30,6 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{e1b7d1f8-9b3c-49b1-8f4f-bfc63a88835d}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "AuthController.cs",
-              "DocumentMoniker": "E:\\estudo C#\\LibraryManager-Repository\\LibraryManagerAPI\\LibraryManager\\LibraryManager.Api\\Controllers\\AuthController.cs",
-              "RelativeDocumentMoniker": "LibraryManager.Api\\Controllers\\AuthController.cs",
-              "ToolTip": "E:\\estudo C#\\LibraryManager-Repository\\LibraryManagerAPI\\LibraryManager\\LibraryManager.Api\\Controllers\\AuthController.cs",
-              "RelativeToolTip": "LibraryManager.Api\\Controllers\\AuthController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAAJAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-23T16:12:43.9Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Program.cs",
-              "DocumentMoniker": "E:\\estudo C#\\LibraryManager-Repository\\LibraryManagerAPI\\LibraryManager\\LibraryManager.Api\\Program.cs",
-              "RelativeDocumentMoniker": "LibraryManager.Api\\Program.cs",
-              "ToolTip": "E:\\estudo C#\\LibraryManager-Repository\\LibraryManagerAPI\\LibraryManager\\LibraryManager.Api\\Program.cs",
-              "RelativeToolTip": "LibraryManager.Api\\Program.cs",
-              "ViewState": "AQIAAC0AAAAAAAAAAAAAAEAAAAAnAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-23T16:00:43.279Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "TokenGenerator.cs",
-              "DocumentMoniker": "E:\\estudo C#\\LibraryManager-Repository\\LibraryManagerAPI\\LibraryManager\\LibraryManager.Core\\Services\\Token\\TokenGenerator.cs",
-              "RelativeDocumentMoniker": "LibraryManager.Core\\Services\\Token\\TokenGenerator.cs",
-              "ToolTip": "E:\\estudo C#\\LibraryManager-Repository\\LibraryManagerAPI\\LibraryManager\\LibraryManager.Core\\Services\\Token\\TokenGenerator.cs",
-              "RelativeToolTip": "LibraryManager.Core\\Services\\Token\\TokenGenerator.cs",
-              "ViewState": "AQIAABEAAAAAAAAAAAAAACQAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-23T15:25:55.967Z",
-              "EditorCaption": ""
             }
           ]
         }

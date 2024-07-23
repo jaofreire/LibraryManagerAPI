@@ -1,12 +1,10 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using LibraryManager.Core.DTOs.User.ViewModels;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
+
 
 namespace LibraryManager.Core.Services.Token
 {
@@ -19,12 +17,12 @@ namespace LibraryManager.Core.Services.Token
             _configuration = configuration;
         }
 
-        public string GenerateToken(long userId, string role)
+        public string GenerateToken(ViewValidateCredentialsUserDTO DTOcredentials)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_configuration["JWT:Secret"]!);
             var credentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature);
-            var claims = CreateClaims(userId, role);
+            var claims = CreateClaims(DTOcredentials.Id, DTOcredentials.Role.ToString());
 
             var tokenDescriptor = new SecurityTokenDescriptor()
             {

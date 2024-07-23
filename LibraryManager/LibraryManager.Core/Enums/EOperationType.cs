@@ -16,5 +16,6 @@ namespace LibraryManager.Core.Enums
         Update = 9,
         Delete = 10,
         DeleteMany = 11,
+        ValidateCredentials = 12
     }
 }

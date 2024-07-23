@@ -1,4 +1,5 @@
-﻿using LibraryManager.Core.Services.Token;
+﻿using LibraryManager.Core.DTOs.User.ViewModels;
+using LibraryManager.Core.Services.Token;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,9 +17,9 @@ namespace LibraryManager.Api.Controllers
         }
 
         [HttpPost("/token")]
-        public ActionResult<string> CreateToken(long userId, string role)
+        public ActionResult<string> CreateToken(ViewValidateCredentialsUserDTO DTOcredentials)
         {
-            return _tokenGenerator.GenerateToken(userId, role);
+            return _tokenGenerator.GenerateToken(DTOcredentials);
         }
     }
 }
