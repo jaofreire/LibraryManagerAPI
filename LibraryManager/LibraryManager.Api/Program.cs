@@ -38,7 +38,7 @@ builder.Services.AddSwaggerGen(c =>
                 });
 });
 
-var stage = Configurations.DevelopmentStage;
+var stage = Configurations.ProductionStage;
 
 builder.Services.AddConfigurations(builder.Configuration, stage);
 

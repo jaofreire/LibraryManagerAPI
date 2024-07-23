@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Builder;
 using LibraryManager.Core.Services.Token;
+using System.Security.Claims;
 
 namespace DependencyInjection
 {
@@ -52,8 +53,7 @@ namespace DependencyInjection
 
             service.AddDefaultAWSOptions(configuration.GetAWSOptions());
             service.AddAWSService<IAmazonS3>().AddTransient<AWSS3>();
-            service.AddSingleton<TokenGenerator>();
-
+            
         }
 
         public static void AddRepositoriesDependencies(this IServiceCollection service)
@@ -68,6 +68,7 @@ namespace DependencyInjection
         {
             service.AddSingleton<CacheHandler>();
             service.AddSingleton<HashPassword>();
+            service.AddSingleton<TokenGenerator>();
         }
 
         public static void AddAuthConfigurations(this IServiceCollection service, IConfiguration configuration)
@@ -101,6 +102,19 @@ namespace DependencyInjection
                 options.AddPolicy("UserPolicy", policy => policy.RequireRole("User"));
                 options.AddPolicy("MerchantPolicy", policy => policy.RequireRole("Merchant"));
                 options.AddPolicy("AdminPolicy", policy => policy.RequireRole("Admin"));
+
+                options.AddPolicy("EveryoneHasAccessPolicy", policy => policy.RequireAssertion(context => context.User.HasClaim(c =>
+                (c.Type == ClaimTypes.Role && c.Value == "User") ||
+                (c.Type == ClaimTypes.Role && c.Value == "Merchant") ||
+                (c.Type == ClaimTypes.Role && c.Value == "Admin")
+                )));
+
+                options.AddPolicy("JustMerchantAndAdminPolicy", policy => policy.RequireAssertion(context => context.User.HasClaim(c =>
+                (c.Type == ClaimTypes.Role && c.Value == "Merchant") ||
+                (c.Type == ClaimTypes.Role && c.Value == "Admin")
+                )));
+
+
             });
             
         }

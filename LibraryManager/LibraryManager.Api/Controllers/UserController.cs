@@ -4,6 +4,8 @@ using LibraryManager.Core.DTOs.User.ViewModels;
 using LibraryManager.Core.Responses;
 using Microsoft.AspNetCore.Mvc;
 using Data.Repositories;
+using Microsoft.AspNetCore.Authorization;
+using Amazon.Auth.AccessControlPolicy;
 
 namespace LibraryManager.Api.Controllers
 {
@@ -23,11 +25,13 @@ namespace LibraryManager.Api.Controllers
             => await _userRepository.RegisterUser(modelDTO);
 
 
+        [Authorize(Policy = "AdminPolicy")]
         [HttpGet("/user")]
         public async Task<ActionResult<APIResponse<ViewUserDTO>>> GetAll()
             => await _userRepository.GetAllUsers();
-            
 
+
+        [Authorize(Policy = "EveryoneHasAccessPolicy")]
         [HttpGet("/user/{id}")]
         public async Task<ActionResult<APIResponse<ViewUserDTO>>> GetById(long id)
             => await _userRepository.GetUserById(id);
@@ -38,12 +42,15 @@ namespace LibraryManager.Api.Controllers
             => await _userRepository.ValidateUserCredentials(DTOresquest);
 
 
+        [Authorize(Policy = "EveryoneHasAccessPolicy")]
         [HttpPut("/user/{id}")]
         public async Task<ActionResult<APIResponse<UpdateInputUserDTO>>> Update(long id, UpdateInputUserDTO DTO)
         {
             return await _userRepository.UpdateUser(id, DTO);
         }
 
+
+        [Authorize(Policy = "EveryoneHasAccessPolicy")]
         [HttpDelete("/user/{id}")]
         public async Task<ActionResult<APIResponse<ViewUserDTO>>> Delete(long id)
             => await _userRepository.DeleteUser(id);

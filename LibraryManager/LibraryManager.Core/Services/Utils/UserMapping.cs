@@ -39,7 +39,6 @@ namespace LibraryManager.Core.Services.Utils
                 FirstName = model.FirstName,
                 LastName = model.LastName,
                 Email = model.Email,
-                PasswordHash = model.PasswordHash,
                 Role = model.Role
             };
         }
