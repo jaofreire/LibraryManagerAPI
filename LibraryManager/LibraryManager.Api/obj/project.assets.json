@@ -1906,7 +1906,21 @@
           "lib/net7.0/ZstdSharp.dll": {}
         }
       },
-      "Data/1.0.0": {
+      "LibraryManager.Application/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "LibraryManager.Data": "1.0.0",
+          "LibraryManager.Domain": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/LibraryManager.Application.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/LibraryManager.Application.dll": {}
+        }
+      },
+      "LibraryManager.Data/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
@@ -1914,7 +1928,7 @@
           "AWSSDK.Extensions.NETCore.Setup": "3.7.301",
           "AWSSDK.S3": "3.7.310.6",
           "BCrypt.Net-Next": "4.0.3",
-          "LibraryManager.Core": "1.0.0",
+          "LibraryManager.Domain": "1.0.0",
           "Microsoft.AspNetCore.Http.Features": "5.0.17",
           "Microsoft.EntityFrameworkCore": "8.0.6",
           "Microsoft.EntityFrameworkCore.Relational": "8.0.6",
@@ -1924,39 +1938,39 @@
           "MongoDB.EntityFrameworkCore": "8.0.1"
         },
         "compile": {
-          "bin/placeholder/Data.dll": {}
+          "bin/placeholder/LibraryManager.Data.dll": {}
         },
         "runtime": {
-          "bin/placeholder/Data.dll": {}
+          "bin/placeholder/LibraryManager.Data.dll": {}
         }
       },
-      "DependencyInjection/1.0.0": {
+      "LibraryManager.DI/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
-          "Data": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/DependencyInjection.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/DependencyInjection.dll": {}
-        }
-      },
-      "LibraryManager.Core/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v8.0",
-        "dependencies": {
+          "LibraryManager.Application": "1.0.0",
+          "LibraryManager.Data": "1.0.0",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "8.0.7",
-          "Microsoft.AspNetCore.Http.Features": "5.0.17",
-          "MongoDB.Bson": "2.26.0",
           "System.IdentityModel.Tokens.Jwt": "8.0.1"
         },
         "compile": {
-          "bin/placeholder/LibraryManager.Core.dll": {}
+          "bin/placeholder/LibraryManager.DI.dll": {}
         },
         "runtime": {
-          "bin/placeholder/LibraryManager.Core.dll": {}
+          "bin/placeholder/LibraryManager.DI.dll": {}
+        }
+      },
+      "LibraryManager.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "MongoDB.Bson": "2.26.0"
+        },
+        "compile": {
+          "bin/placeholder/LibraryManager.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/LibraryManager.Domain.dll": {}
         }
       }
     }
@@ -5223,29 +5237,32 @@
         "zstdsharp.port.nuspec"
       ]
     },
-    "Data/1.0.0": {
+    "LibraryManager.Application/1.0.0": {
       "type": "project",
-      "path": "../Data/Data.csproj",
-      "msbuildProject": "../Data/Data.csproj"
+      "path": "../LibraryManager.Application/LibraryManager.Application.csproj",
+      "msbuildProject": "../LibraryManager.Application/LibraryManager.Application.csproj"
     },
-    "DependencyInjection/1.0.0": {
+    "LibraryManager.Data/1.0.0": {
       "type": "project",
-      "path": "../DependencyInjection/DependencyInjection.csproj",
-      "msbuildProject": "../DependencyInjection/DependencyInjection.csproj"
+      "path": "../LibraryManager.Data/LibraryManager.Data.csproj",
+      "msbuildProject": "../LibraryManager.Data/LibraryManager.Data.csproj"
     },
-    "LibraryManager.Core/1.0.0": {
+    "LibraryManager.DI/1.0.0": {
       "type": "project",
-      "path": "../LibraryManager.Core/LibraryManager.Core.csproj",
-      "msbuildProject": "../LibraryManager.Core/LibraryManager.Core.csproj"
+      "path": "../LibraryManager.DI/LibraryManager.DI.csproj",
+      "msbuildProject": "../LibraryManager.DI/LibraryManager.DI.csproj"
+    },
+    "LibraryManager.Domain/1.0.0": {
+      "type": "project",
+      "path": "../LibraryManager.Domain/LibraryManager.Domain.csproj",
+      "msbuildProject": "../LibraryManager.Domain/LibraryManager.Domain.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net8.0": [
       "AutoMapper >= 13.0.1",
       "BCrypt.Net-Next >= 4.0.3",
-      "Data >= 1.0.0",
-      "DependencyInjection >= 1.0.0",
-      "LibraryManager.Core >= 1.0.0",
+      "LibraryManager.DI >= 1.0.0",
       "Microsoft.EntityFrameworkCore >= 8.0.6",
       "Microsoft.EntityFrameworkCore.Design >= 8.0.6",
       "Microsoft.EntityFrameworkCore.Relational >= 8.0.6",
@@ -5291,14 +5308,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "E:\\estudo C#\\LibraryManager-Repository\\LibraryManagerAPI\\LibraryManager\\Data\\Data.csproj": {
-              "projectPath": "E:\\estudo C#\\LibraryManager-Repository\\LibraryManagerAPI\\LibraryManager\\Data\\Data.csproj"
-            },
-            "E:\\estudo C#\\LibraryManager-Repository\\LibraryManagerAPI\\LibraryManager\\DependencyInjection\\DependencyInjection.csproj": {
-              "projectPath": "E:\\estudo C#\\LibraryManager-Repository\\LibraryManagerAPI\\LibraryManager\\DependencyInjection\\DependencyInjection.csproj"
-            },
-            "E:\\estudo C#\\LibraryManager-Repository\\LibraryManagerAPI\\LibraryManager\\LibraryManager.Core\\LibraryManager.Core.csproj": {
-              "projectPath": "E:\\estudo C#\\LibraryManager-Repository\\LibraryManagerAPI\\LibraryManager\\LibraryManager.Core\\LibraryManager.Core.csproj"
+            "E:\\estudo C#\\LibraryManager-Repository\\LibraryManagerAPI\\LibraryManager\\LibraryManager.DI\\LibraryManager.DI.csproj": {
+              "projectPath": "E:\\estudo C#\\LibraryManager-Repository\\LibraryManagerAPI\\LibraryManager\\LibraryManager.DI\\LibraryManager.DI.csproj"
             }
           }
         }

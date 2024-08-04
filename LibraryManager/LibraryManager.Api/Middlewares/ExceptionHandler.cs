@@ -1,6 +1,6 @@
 ﻿using Amazon.S3;
-using LibraryManager.Core.Enums;
-using LibraryManager.Core.Responses;
+using LibraryManager.Application.Enums;
+using LibraryManager.Application.Responses;
 using System.Net;
 using System.Text.Json;
 
@@ -36,21 +36,6 @@ namespace LibraryManager.Api.Middlewares
 
             switch (ex)
             {
-                case KeyNotFoundException:
-                    message = ex.Message;
-                    statusCode = HttpStatusCode.NotFound;
-                    operation = EOperationType.GetById.ToString();
-                    break;
-
-                case AmazonS3Exception:
-                    message = ex.Message;
-                    if (httpContext.Request.Method == "POST")
-                    {
-                        statusCode = HttpStatusCode.BadRequest;
-                        operation = EOperationType.Create.ToString();
-                    }
-                    statusCode = HttpStatusCode.InternalServerError;
-                    break;
 
                 default:
                     message = "An unexpected error ocorred";

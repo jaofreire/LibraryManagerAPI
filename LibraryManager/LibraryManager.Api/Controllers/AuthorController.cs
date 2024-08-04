@@ -1,8 +1,8 @@
-﻿using LibraryManager.Core.DTOs.Author.InputModel;
-using LibraryManager.Core.DTOs.Author.ViewModel;
-using Microsoft.AspNetCore.Mvc;
-using LibraryManager.Core.Interfaces;
-using LibraryManager.Core.Responses;
+﻿using Microsoft.AspNetCore.Mvc;
+using LibraryManager.Application.Services.Interfaces;
+using LibraryManager.Application.DTOs.Author.Input;
+using LibraryManager.Application.DTOs.Author.Output;
+using LibraryManager.Application.Responses;
 
 namespace LibraryManager.Api.Controllers
 {
@@ -10,37 +10,37 @@ namespace LibraryManager.Api.Controllers
     [ApiController]
     public class AuthorController : ControllerBase
     {
-        private readonly IAuthorRepository _authorRepository;
+        private readonly IAuthorService _authorService;
 
-        public AuthorController(IAuthorRepository authorRepository)
+        public AuthorController(IAuthorService authorService)
         {
-            _authorRepository = authorRepository;
+            _authorService = authorService;
 
         }
 
         [HttpPost("/author")]
         public async Task<ActionResult<APIResponse<CreateAuthorDTO>>> Register(CreateAuthorDTO modelDTO)
-            => await _authorRepository.RegisterAuthor(modelDTO);
+            => await _authorService.RegisterAuthor(modelDTO);
 
         [HttpPost("/authors")]
         public async Task<ActionResult<APIResponse<CreateAuthorDTO>>> RegisterAuthors(List<CreateAuthorDTO> modelDTO)
-            => await _authorRepository.RegisterAuthors(modelDTO);
+            => await _authorService.RegisterAuthors(modelDTO);
 
         [HttpGet("/author")]
         public async Task<ActionResult<APIResponse<ViewAuthorDTO>>> GetAll()
-            => await _authorRepository.GetAllAuthors();
+            => await _authorService.GetAllAuthors();
         
         [HttpGet("/author/{id}")]
         public async Task<ActionResult<APIResponse<ViewAuthorDTO>>> GetById(long id)
-            => await _authorRepository.GetAuthorById(id);
+            => await _authorService.GetAuthorById(id);
 
         [HttpPut("/author/{id}")]
-        public async Task<ActionResult<APIResponse<UpdateAuthorDTO>>> Update(long id, UpdateAuthorDTO DTO)
-            => await _authorRepository.UpdateAuthor(id, DTO);
+        public async Task<ActionResult<APIResponse<UpdateAuthorDTO>>> Update(UpdateAuthorDTO DTO)
+            => await _authorService.UpdateAuthor(DTO);
 
         [HttpDelete("/author/{id}")]
         public async Task<ActionResult<APIResponse<ViewAuthorDTO>>> Delete(long id)
-            => await _authorRepository.DeleteAuthor(id);
+            => await _authorService.DeleteAuthor(id);
 
     }
 }

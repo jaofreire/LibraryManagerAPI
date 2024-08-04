@@ -1,11 +1,10 @@
-﻿using LibraryManager.Core.Interfaces;
-using LibraryManager.Core.DTOs.User.InputModels;
-using LibraryManager.Core.DTOs.User.ViewModels;
-using LibraryManager.Core.Responses;
-using Microsoft.AspNetCore.Mvc;
-using Data.Repositories;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
-using Amazon.Auth.AccessControlPolicy;
+using LibraryManager.Application.Services.Interfaces;
+using LibraryManager.Application.DTOs.User.Input;
+using LibraryManager.Application.DTOs.User.Output;
+using LibraryManager.Application.Responses;
+
 
 namespace LibraryManager.Api.Controllers
 {
@@ -13,47 +12,47 @@ namespace LibraryManager.Api.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IUserService _userService;
 
-        public UserController(IUserRepository userRepository)
+        public UserController(IUserService userService)
         {
-            _userRepository = userRepository;
+            _userService = userService;
         }
 
         [HttpPost("/user")]
         public async Task<ActionResult<APIResponse<CreateUserDTO>>> Register(CreateUserDTO modelDTO)
-            => await _userRepository.RegisterUser(modelDTO);
+            => await _userService.RegisterUser(modelDTO);
 
 
         [Authorize(Policy = "AdminPolicy")]
         [HttpGet("/user")]
         public async Task<ActionResult<APIResponse<ViewUserDTO>>> GetAll()
-            => await _userRepository.GetAllUsers();
+            => await _userService.GetAllUsers();
 
 
         [Authorize(Policy = "EveryoneHasAccessPolicy")]
         [HttpGet("/user/{id}")]
         public async Task<ActionResult<APIResponse<ViewUserDTO>>> GetById(long id)
-            => await _userRepository.GetUserById(id);
+            => await _userService.GetUserById(id);
 
 
-        [HttpGet("/validateCredentials")]
-        public async Task<ActionResult<APIResponse<ViewValidateCredentialsUserDTO>>> ValidateCredentials([FromQuery]ValidateCredentialsUserDTO DTOresquest)
-            => await _userRepository.ValidateUserCredentials(DTOresquest);
+        [HttpPost("/validateCredentials")]
+        public async Task<ActionResult<APIResponse<ViewValidateCredentialsUserDTO>>> ValidateCredentials(ValidateCredentialsUserDTO DTOresquest)
+            => await _userService.ValidateUserCredentials(DTOresquest);
 
 
         [Authorize(Policy = "EveryoneHasAccessPolicy")]
         [HttpPut("/user/{id}")]
         public async Task<ActionResult<APIResponse<UpdateInputUserDTO>>> Update(long id, UpdateInputUserDTO DTO)
         {
-            return await _userRepository.UpdateUser(id, DTO);
+            return await _userService.UpdateUser(id, DTO);
         }
 
 
         [Authorize(Policy = "EveryoneHasAccessPolicy")]
         [HttpDelete("/user/{id}")]
         public async Task<ActionResult<APIResponse<ViewUserDTO>>> Delete(long id)
-            => await _userRepository.DeleteUser(id);
+            => await _userService.DeleteUser(id);
 
     }
 }

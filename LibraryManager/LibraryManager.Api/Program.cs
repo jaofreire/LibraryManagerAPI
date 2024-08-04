@@ -1,6 +1,6 @@
-using DependencyInjection;
 using LibraryManager.Api;
 using LibraryManager.Api.Middlewares;
+using LibraryManager.DI;
 using Microsoft.OpenApi.Models;
 
 

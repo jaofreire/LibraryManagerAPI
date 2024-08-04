@@ -1,6 +1,5 @@
-﻿using LibraryManager.Core.DTOs.User.ViewModels;
-using LibraryManager.Core.Services.Token;
-using Microsoft.AspNetCore.Http;
+﻿using LibraryManager.Application.Helper.Tokens.Interfaces;
+using LibraryManager.Application.DTOs.User.Output;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LibraryManager.Api.Controllers
@@ -9,17 +8,17 @@ namespace LibraryManager.Api.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private readonly TokenGenerator _tokenGenerator;
+        private readonly ITokensGenerator _tokensGenerator;
 
-        public AuthController(TokenGenerator tokenGenerator)
+        public AuthController(ITokensGenerator tokensGenerator)
         {
-            _tokenGenerator = tokenGenerator;
+            _tokensGenerator = tokensGenerator;
         }
 
         [HttpPost("/token")]
         public ActionResult<string> CreateToken(ViewValidateCredentialsUserDTO DTOcredentials)
         {
-            return _tokenGenerator.GenerateToken(DTOcredentials);
+            return _tokensGenerator.GenerateToken(DTOcredentials);
         }
     }
 }
